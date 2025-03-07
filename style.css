@@ -2117,7 +2117,7 @@ body[data-tab-size="3"] .tab-favicon {
   height: 32px;
 }
 
-/* =================== Responsive Design =================== */
+/* =================== Responsive Desig n =================== */
 @media (max-width: 768px) {
   #url-container {
     max-width: 100%;
@@ -2148,5 +2148,5 @@ body[data-tab-size="3"] .tab-favicon {
   
   #url-form {
     height: 38px;
-  }
+  } 
 }

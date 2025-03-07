@@ -316,8 +316,8 @@
   @keyframes fadeOut {
     to { opacity: 0; }
   }
-  
-  /* Loading completed animation */
+   
+  /* Loading completed ani   mation */
   .loading-complete {
     position: absolute;
     width: 40px;

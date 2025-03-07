@@ -652,8 +652,8 @@ body.no-animation * {
   align-items: center;
   justify-content: center;
 }
-
-/* Performance monitoring overlay */
+ 
+/* Performance monitorin    g overlay */
 .performance-overlay {
   position: fixed;
   top: 10px;

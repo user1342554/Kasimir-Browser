@@ -14,7 +14,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.send('window-maximize');
   },
   
-  // Browser navigation
+  // Browser nav    igation
   navigateToUrl: (url) => {
     ipcRenderer.send('navigate-to-url', url);
   },

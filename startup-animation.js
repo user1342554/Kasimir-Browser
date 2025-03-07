@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pulseRing2.style.animation = 'pulseRing 1.5s cubic-bezier(0, 0.55, 0.45, 1) forwards';
       }, 300);
       
-      // Final animation - fade out startup animation
+      // Final animation - fade out st   artup animation
       setTimeout(() => {
         const loadingComplete = document.getElementById('loadingComplete');
         loadingComplete.style.animation = 'loadComplete 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';

@@ -195,7 +195,7 @@ input:focus:not(:focus-visible) {
   background-color: var(--accent-primary);
 }
 
-/* Ensure proper z-index stacking */
+/* Ensure proper z     -index stacking */
 #title-bar {
   z-index: 1000;
 }

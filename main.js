@@ -78,7 +78,7 @@ ipcMain.on('window-maximize', () => {
   }
 });
 
-// Browser navigation event handlers
+// Browser navigation event han dlers
 ipcMain.on('navigate-to-url', (event, url) => {
   // Handle URL navigation if needed
   console.log('Navigate to URL:',  url);

@@ -172,7 +172,7 @@
   }
 }
 
-/* For webkit browsers, prevent overflow during transition animations */
+/* For webkit browsers, preven         t overflow during transition animations */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

@@ -1180,7 +1180,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    // Escape key to close panels
+    // Escape key to clos     e panels
     if (e.key === 'Escape') {
       if (isSettingsPanelOpen && settingsPanel) {
         settingsPanel.classList.remove('active');
