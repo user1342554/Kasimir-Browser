@@ -243,31 +243,7 @@
     }
   }
   
-  /* Pulse effect on completion */
-  .pulse-ring {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background-color: transparent;
-    border: 2px solid var(--accent-primary, #e60023);
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.3);
-    left: 50%;
-    top: 50%;
-    z-index: -1;
-  }
-  
-  @keyframes pulseRing {
-    0% {
-      opacity: 0.7;
-      transform: translate(-50%, -50%) scale(0.3);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(1);
-    }
-  }
+
   
   /* Small bouncing dots indicator */
   .loading-dots {
@@ -315,33 +291,4 @@
   
   @keyframes fadeOut {
     to { opacity: 0; }
-  }
-   
-  /* Loading completed ani   mation */
-  .loading-complete {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--accent-primary, #e60023);
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    z-index: 10;
-  }
-  
-  @keyframes loadComplete {
-    0% {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 1;
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(1.2);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(20);
-      opacity: 0;
-    }
   }

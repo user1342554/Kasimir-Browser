@@ -30,32 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
       particlesContainer.appendChild(particle);
     }
     
-    // Create pulse effect after loading
+    // Stop the animation after exactly 3 seconds
     setTimeout(() => {
-      const pulseRing1 = document.getElementById('pulseRing1');
-      pulseRing1.style.animation = 'pulseRing 1.5s cubic-bezier(0, 0.55, 0.45, 1) forwards';
+      // Trigger the final animation for a clean transition
+      const loadingComplete = document.getElementById('loadingComplete');
+      loadingComplete.style.animation = 'loadComplete 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
       
+      // Hide the animation after a short transition
       setTimeout(() => {
-        const pulseRing2 = document.getElementById('pulseRing2');
-        pulseRing2.style.animation = 'pulseRing 1.5s cubic-bezier(0, 0.55, 0.45, 1) forwards';
-      }, 300);
-      
-      // Final animation - fade out st   artup animation
-      setTimeout(() => {
-        const loadingComplete = document.getElementById('loadingComplete');
-        loadingComplete.style.animation = 'loadComplete 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+        startupAnimation.classList.add('hidden');
+        // Mark animation as shown for this session
+        sessionStorage.setItem('hasShownStartupAnimation', 'true');
         
-        // Hide startup animation after the final animation
-        setTimeout(() => {
-          startupAnimation.classList.add('hidden');
-          // Mark animation as shown for this session
-          sessionStorage.setItem('hasShownStartupAnimation', 'true');
-          
-          // Trigger browser initialization if needed
-          if (window.electronAPI && window.electronAPI.signalAnimationComplete) {
-            window.electronAPI.signalAnimationComplete();
-          }
-        }, 800);
-      }, 3400);
-    }, 3000);
-  });
+        // Trigger browser initialization if needed
+        if (window.electronAPI && window.electronAPI.signalAnimationComplete) {
+          window.electronAPI.signalAnimationComplete();
+        }
+      }, 600);
+    }, 2400); // 2.4s + 0.6s = 3s total
+});
