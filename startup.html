@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kasimir Browser Startup Animation</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --accent-primary: #e60023;
+      --accent-secondary: #4285f4;
+      --accent-tertiary: #fbbc05;
+      --accent-quaternary: #34a853;
+      --text-primary: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    /* Animation container */
+    .animation-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Background elements */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      filter: blur(60px);
+      transform: translate(-50%, -50%);
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .bg-circle-1 {
+      width: 600px;
+      height: 600px;
+      background-color: var(--accent-primary);
+      top: 30%;
+      left: 30%;
+      animation-delay: 0s;
+    }
+
+    .bg-circle-2 {
+      width: 400px;
+      height: 400px;
+      background-color: var(--accent-secondary);
+      top: 70%;
+      left: 70%;
+      animation-delay: -5s;
+    }
+
+    .bg-circle-3 {
+      width: 500px;
+      height: 500px;
+      background-color: var(--accent-tertiary);
+      top: 40%;
+      left: 60%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(-50%, -50%);
+      }
+      25% {
+        transform: translate(-48%, -52%);
+      }
+      50% {
+        transform: translate(-52%, -48%);
+      }
+      75% {
+        transform: translate(-50%, -46%);
+      }
+    }
+
+    /* Particles */
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: white;
+      opacity: 0;
+    }
+
+    @keyframes particleAnimation {
+      0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Main logo container */
+    .logo-container {
+      position: relative;
+      transform-style: preserve-3d;
+      animation: containerAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    @keyframes containerAppear {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Logo elements */
+    .logo-letter {
+      font-size: 70px;
+      font-weight: 900;
+      color: white;
+      display: inline-block;
+      transform: translateY(80px) rotateX(-90deg);
+      opacity: 0;
+      animation: letterAppear 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      margin-right: -3px;
+    }
+
+    .k { animation-delay: 0.3s; color: var(--accent-primary); }
+    .a1 { animation-delay: 0.4s; }
+    .s { animation-delay: 0.5s; }
+    .i { animation-delay: 0.6s; }
+    .m { animation-delay: 0.7s; }
+    .i2 { animation-delay: 0.8s; }
+    .r { animation-delay: 0.9s; color: var(--accent-primary); }
+
+    @keyframes letterAppear {
+      to {
+        transform: translateY(0) rotateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Decorative elements */
+    .logo-shape {
+      position: absolute;
+      opacity: 0;
+      animation: shapeAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .shape-circle {
+      width: 20px;
+      height: 20px;
+      background-color: var(--accent-secondary);
+      border-radius: 50%;
+      top: -20px;
+      right: -10px;
+      animation-delay: 1.1s;
+    }
+
+    .shape-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-tertiary);
+      border-radius: 50%;
+      top: 20px;
+      left: -15px;
+      animation-delay: 1.2s;
+    }
+
+    .shape-square {
+      width: 12px;
+      height: 12px;
+      background-color: var(--accent-quaternary);
+      bottom: -15px;
+      right: 40px;
+      transform: rotate(45deg);
+      animation-delay: 1.3s;
+    }
+
+    @keyframes shapeAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0) rotate(45deg);
+      }
+      60% {
+        transform: scale(1.4) rotate(45deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(45deg);
+      }
+    }
+
+    /* Loading progress */
+    .loading-bar-container {
+      position: absolute;
+      bottom: 100px;
+      width: 200px;
+      height: 4px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 0.5s ease 1.4s forwards;
+    }
+
+    .loading-bar {
+      height: 100%;
+      width: 0;
+      background-color: var(--accent-primary);
+      border-radius: 2px;
+      animation: loadProgress 1.8s cubic-bezier(0.76, 0, 0.24, 1) 1.5s forwards;
+    }
+
+    @keyframes loadProgress {
+      0% { width: 0; }
+      60% { width: 80%; }
+      100% { width: 100%; }
+    }
+
+    /* Tagline */
+    .tagline {
+      position: absolute;
+      bottom: 70px;
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.7);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: taglineAppear 0.8s cubic-bezier(0.25, 1, 0.5, 1) 1.7s forwards;
+    }
+
+    @keyframes taglineAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Pulse effect on completion */
+    .pulse-ring {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background-color: transparent;
+      border: 2px solid var(--accent-primary);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.3);
+      left: 50%;
+      top: 50%;
+      z-index: -1;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(0.3);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    /* Small bouncing dots indicator */
+    .loading-dots {
+      position: absolute;
+      bottom: 40px;
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease 1.4s forwards;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: white;
+      opacity: 0.5;
+    }
+
+    .dot:nth-child(1) {
+      animation: bounce 0.8s infinite 1.5s;
+    }
+
+    .dot:nth-child(2) {
+      animation: bounce 0.8s infinite 1.6s;
+    }
+
+    .dot:nth-child(3) {
+      animation: bounce 0.8s infinite 1.7s;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Utility animations */
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; }
+    }
+
+    /* Loading completed animation */
+    .loading-complete {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-primary);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      z-index: 10;
+    }
+
+    @keyframes loadComplete {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(20);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animation-container">
+    <!-- Background elements -->
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-circle bg-circle-3"></div>
+    
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Logo -->
+    <div class="logo-container">
+      <span class="logo-letter k">K</span>
+      <span class="logo-letter a1">a</span>
+      <span class="logo-letter s">s</span>
+      <span class="logo-letter i">i</span>
+      <span class="logo-letter m">m</span>
+      <span class="logo-letter i2">i</span>
+      <span class="logo-letter r">r</span>
+      
+      <!-- Decorative shapes -->
+      <div class="logo-shape shape-circle"></div>
+      <div class="logo-shape shape-dot"></div>
+      <div class="logo-shape shape-square"></div>
+    </div>
+    
+    <!-- Loading progress -->
+    <div class="loading-bar-container">
+      <div class="loading-bar"></div>
+    </div>
+    
+    <!-- Tagline -->
+    <div class="tagline">Redefining your browsing experience</div>
+    
+    <!-- Loading dots -->
+    <div class="loading-dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    
+    <!-- Pulse rings -->
+    <div class="pulse-ring" id="pulseRing1"></div>
+    <div class="pulse-ring" id="pulseRing2"></div>
+    
+    <!-- Loading complete animation -->
+    <div class="loading-complete" id="loadingComplete"></div>
+  </div>
+  
+  <script>
+    // Create particles
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      
+      // Set custom properties for animation
+      particle.style.setProperty('--tx', (Math.random() * 200 - 100) + 'px');
+      particle.style.setProperty('--ty', (Math.random() * 200 - 100) + 'px');
+      
+      // Set animation
+      particle.style.animation = 'particleAnimation ' + 
+        (2 + Math.random() * 2) + 's ' + 
+        (Math.random() * 2) + 's infinite ease-out';
+      
+      particlesContainer.appendChild(particle);
+    }
+    
+    // Create pulse effect after loading
+    setTimeout(() => {
+      const pulseRing1 = document.getElementById('pulseRing1');
+      pulseRing1.style.animation = 'pulseRing 1.5s cubic-bezier(0, 0.55, 0.45, 1) forwards';
+      
+      setTimeout(() => {
+        const pulseRing2 = document.getElementById('pulseRing2');
+        pulseRing2.style.animation = 'pulseRing 1.5s cubic-bezier(0, 0.55, 0.45, 1) forwards';
+      }, 300);
+      
+      // Final animation - transition to main app
+      setTimeout(() => {
+        const loadingComplete = document.getElementById('loadingComplete');
+        loadingComplete.style.animation = 'loadComplete 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+        
+        // Navigate to main app after animation completes
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 800);
+      }, 3400);
+    }, 3000);
+  </script>
+</body>
+</html>

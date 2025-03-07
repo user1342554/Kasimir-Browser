@@ -1,0 +1,14 @@
+{
+  "name": "Kasimir",
+  "version": "1.0.0",
+  "description": "cool browser",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Jonas ",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+} 

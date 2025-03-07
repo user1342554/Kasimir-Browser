@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kasimir Start</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --accent-primary: #e60023;
+      --accent-secondary: #4285f4;
+      --accent-tertiary: #fbbc05;
+      --accent-quaternary: #34a853;
+      --text-primary: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Welcome area styles */
+    .welcome-area {
+      margin-top: 60px;
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      animation-delay: 0.5s;
+    }
+    
+    .logo {
+      font-size: 48px;
+      font-weight: bold;
+      color: var(--accent-primary);
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #b0b0b0;
+      margin-top: 10px;
+    }
+
+    /* Bookmarks grid */
+    .bookmarks {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      width: 90%;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      animation-delay: 0.8s;
+    }
+
+    .bookmark {
+      background-color: #2a2a2a;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .bookmark:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .bookmark-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 15px;
+    }
+
+    .bookmark-title {
+      font-size: 16px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-area">
+    <div class="logo">Kasimir</div>
+    <div class="subtitle">Welcome to your browser</div>
+  </div>
+  
+  <div class="bookmarks">
+    <div class="bookmark" onclick="window.location.href='https://www.google.com'">
+      <div class="bookmark-icon">
+        <svg viewBox="0 0 24 24" width="48" height="48">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          <path fill="none" d="M1 1h22v22H1z"/>
+        </svg>
+      </div>
+      <div class="bookmark-title">Google</div>
+    </div>
+    
+    <div class="bookmark" onclick="window.location.href='https://www.youtube.com'">
+      <div class="bookmark-icon">
+        <svg viewBox="0 0 24 24" width="48" height="48">
+          <path fill="#FF0000" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.9 3.6 12 3.6 12 3.6s-7.9 0-9.5.5c-1 .3-1.7 1.1-2 2.1C0 7.9 0 12 0 12s0 4.1.5 5.8c.3 1 1 1.8 2 2.1 1.6.5 9.5.5 9.5.5s7.9 0 9.5-.5c1-.3 1.7-1.1 2-2.1.5-1.7.5-5.8.5-5.8s0-4.1-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/>
+        </svg>
+      </div>
+      <div class="bookmark-title">YouTube</div>
+    </div>
+    
+    <div class="bookmark" onclick="window.location.href='https://www.github.com'">
+      <div class="bookmark-icon">
+        <svg viewBox="0 0 24 24" width="48" height="48">
+          <path fill="#FFFFFF" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.2-.7 0-.7 0-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.9.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/>
+        </svg>
+      </div>
+      <div class="bookmark-title">GitHub</div>
+    </div>
+    
+    <div class="bookmark" onclick="window.location.href='https://www.wikipedia.org'">
+      <div class="bookmark-icon">
+        <svg viewBox="0 0 24 24" width="48" height="48">
+          <path fill="#FFFFFF" d="M12.09 13.119c-.936 1.932-2.217 4.548-2.853 5.728-.616 1.074-1.127.931-1.532.029-1.406-3.321-4.293-9.144-5.651-12.409-.251-.601-.441-.987-.619-1.139-.181-.15-.554-.24-1.122-.271C.103 5.033 0 4.982 0 4.898v-.455l.052-.045c.924-.005 5.401 0 5.401 0l.051.045v.434c0 .084-.103.135-.208.157-.109.021-.377.077-.46.133-.092.065-.127.183-.072.365.797 2.417 3.674 9.223 4.47 11.52.21-.398.345-.645.456-.828.331-.565 3.466-7.589 4.886-11.048.097-.221.073-.365-.058-.428-.085-.04-.19-.061-.328-.071-.218-.015-.324-.066-.324-.151v-.468l.06-.045h4.292l.113.037v.451c0 .072-.057.134-.21.161-.478.077-.8.196-.976.349-.226.193-.154.383-.057.628.248.6.922 2.017 1.786 3.902 1.304 2.849 2.936 6.11 3.196 6.731.148-.183 2.137-4.597 3.89-9.258.197-.548.182-.834.54-1.076.238-.159.039-.324.039-.43v-.36l.055-.052h4.056l.051.052v.444c0 .123-.18.202-.537.227-.268.018-.449.048-.576.092-.127.045-.194.183-.218.426-.23 2.432-.995 8.092-1.356 11.12-.11.925-.522 1.314-1.106 1.314-.94 0-1.961-1.314-3.243-3.448-.155-.268-1.485-2.637-3.001-5.388-.857-1.561-1.438-2.568-1.672-2.959m0 0"/>
+        </svg>
+      </div>
+      <div class="bookmark-title">Wikipedia</div>
+    </div>
+  </div>
+</body>
+</html>    

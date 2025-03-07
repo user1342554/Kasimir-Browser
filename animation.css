@@ -1,0 +1,192 @@
+/* ================= BROWSER UI ANIMATIONS ================= */
+
+/* Browser container initial state (hidden until animation completes) */
+#browser-container {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Tab animations completely disabled */
+.tab {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Loading bar animation for page loads */
+#loading-bar {
+  height: 3px;
+  background-color: var(--accent-primary, #e60023);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  z-index: 10;
+  transition: width 0.2s ease-out;
+}
+
+#loading-bar.loading {
+  animation: loading-animation 2s ease-in-out infinite;
+}
+
+#loading-bar.tab-operation {
+  display: none;
+}
+
+@keyframes loading-animation {
+  0% { width: 0; }
+  50% { width: 70%; }
+  80% { width: 90%; }
+  95% { width: 95%; }
+  100% { width: 95%; }
+}
+
+/* No animation utilities */
+.no-animation * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ================= PANEL ANIMATIONS ================= */
+
+/* Settings panel animation */
+#settings-panel {
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#settings-panel.active {
+  transform: translateX(0);
+}
+
+/* Extensions panel animation */
+#extensions-panel {
+  transform: translateY(-100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#extensions-panel.active {
+  transform: translateY(0);
+}
+
+/* Settings tabs transition */
+.settings-tab-content {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: none;
+}
+
+.settings-tab-content.active {
+  opacity: 1;
+  transform: translateY(0);
+  display: block;
+}
+
+/* Theme transitions */
+:root {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Templates transition */
+.template-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Tab size transition */
+.tab {
+  transition: padding 0.3s ease, background-color 0.3s ease;
+}
+
+.tab-favicon {
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Bookmark item transition */
+.bookmark-item {
+  transition: border-bottom 0.2s ease, color 0.2s ease;
+}
+
+/* Extension items transition */
+.extension-quick-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Sidebar transition */
+#sidebar {
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Panel entrance animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* For webkit browsers, prevent overflow during transition animations */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
