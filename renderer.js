@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.getElementById('sidebar');
   const tabsContainer = document.getElementById('tabs-container');
   const newTabButton = document.getElementById('new-tab-button');
-  const webview = document.getElementById('browser-view');
+  const webviewContainer = document.getElementById('webview-container');
   const urlForm = document.getElementById('url-form');
   const urlInput = document.getElementById('url-input');
   const backButton = document.getElementById('back-button');
@@ -48,12 +48,34 @@ document.addEventListener('DOMContentLoaded', () => {
   let customColors = JSON.parse(localStorage.getItem('customColors') || '{}');
   let extensions = JSON.parse(localStorage.getItem('extensions') || '[]');
   let browserInitialized = false;
+  
+  // Single webview for better performance - we'll preserve tab states
+  const webview = document.getElementById('browser-view') || document.createElement('webview');
+  
+  // Tab state storage - for efficient tab switching
+  const tabStates = {};
+  
+  // Performance optimization - throttle functions
+  function throttle(func, delay) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, delay);
+      }
+    };
+  }
 
   // ------------------ Utility Functions ------------------
-  // Format URL for display (hide file paths, remove protocol)
+  // Format URL for display
   function formatUrlForDisplay(url) {
+    if (!url) return '';
+    
     if (url.startsWith('file://')) {
-      if (url.endsWith('homepage.html')) {
+      if (url.includes('homepage.html')) {
         return '';
       }
       return 'kasimir://local-file';
@@ -61,15 +83,31 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.replace(/^(https?:\/\/)?(www\.)?/i, '');
   }
 
+  // Get homepage path
+  function getHomepagePath() {
+    return `file://${window.appPath.appDir.replace(/\\/g, '/')}/homepage.html`;
+  }
+
   // ------------------ Browser Initialization ------------------
-  // This function initializes the browser after the startup animation completes
   function initializeBrowser() {
     if (browserInitialized) return;
     browserInitialized = true;
     
+    // Setup webview if needed
+    if (!webview.id) {
+      webview.id = 'browser-view';
+      webview.setAttribute('src', 'about:blank');
+      webview.style.width = '100%';
+      webview.style.height = '100%';
+      webviewContainer.appendChild(webview);
+    }
+
+    // Add webview events
+    initWebviewEvents();
+    
     // Initialize tabs
     initTabs();
-
+    
     // Apply the current theme
     applyTheme(currentTheme);
 
@@ -110,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize the browser when startup animation is hidden
-  // We can use a MutationObserver to detect when the animation is hidden
   if (startupAnimation) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -125,13 +162,138 @@ document.addEventListener('DOMContentLoaded', () => {
     
     observer.observe(startupAnimation, { attributes: true });
     
-    // Fallback initialization in case animation is already hidden or doesn't exist
     if (startupAnimation.classList.contains('hidden')) {
       initializeBrowser();
     }
   } else {
-    // If there's no startup animation, initialize immediately
     initializeBrowser();
+  }
+
+  // Initialize webview events - only once
+  function initWebviewEvents() {
+    webview.addEventListener('did-navigate', (e) => {
+      urlInput.value = formatUrlForDisplay(e.url);
+      
+      // Save URL in tab state
+      if (activeTabId) {
+        const tab = tabs.find(t => t.id === activeTabId);
+        if (tab) {
+          tab.url = e.url;
+          saveTabState(activeTabId);
+          saveTabs();
+        }
+      }
+      
+      updateNavigationState();
+    });
+
+    webview.addEventListener('did-start-loading', () => {
+      loadingBar.classList.add('loading');
+    });
+    
+    webview.addEventListener('did-stop-loading', () => {
+      loadingBar.classList.remove('loading');
+      updateNavigationState();
+    });
+    
+    webview.addEventListener('did-fail-load', (e) => {
+      if (e.errorCode === -3) return; // Ignore aborted errors
+      
+      console.warn(`Navigation failed:`, e.errorDescription);
+      loadingBar.classList.remove('loading');
+      
+      if (e.errorCode !== -3) { // Don't show for aborted requests
+        showNotification(`Failed to load page: ${e.errorDescription}`, 'error');
+      }
+    });
+    
+    webview.addEventListener('page-title-updated', (e) => {
+      if (activeTabId) {
+        const tab = tabs.find(t => t.id === activeTabId);
+        if (tab) {
+          tab.title = e.title;
+          
+          // Update tab DOM
+          const tabElement = document.querySelector(`.tab[data-id="${activeTabId}"]`);
+          if (tabElement) {
+            const titleElement = tabElement.querySelector('.tab-title');
+            if (titleElement) titleElement.textContent = e.title;
+            tabElement.setAttribute('data-title', e.title);
+          }
+          
+          saveTabState(activeTabId);
+          saveTabs();
+        }
+      }
+    });
+    
+    webview.addEventListener('page-favicon-updated', (e) => {
+      if (e.favicons && e.favicons.length > 0 && activeTabId) {
+        const tab = tabs.find(t => t.id === activeTabId);
+        if (tab) {
+          tab.favicon = e.favicons[0];
+          
+          // Update favicon in DOM
+          const tabElement = document.querySelector(`.tab[data-id="${activeTabId}"]`);
+          if (tabElement) {
+            const faviconElement = tabElement.querySelector('.tab-favicon');
+            if (faviconElement) {
+              faviconElement.innerHTML = `<img src="${e.favicons[0]}" alt="">`;
+            }
+          }
+          
+          saveTabState(activeTabId);
+          saveTabs();
+        }
+      }
+    });
+    
+    webview.addEventListener('new-window', (e) => {
+      createNewTab(e.url);
+      e.preventDefault();
+    });
+  }
+
+  // ------------------ Tab State Management ------------------
+  // Save tab state for efficient switching
+  function saveTabState(tabId) {
+    if (!tabId) return;
+    
+    tabStates[tabId] = {
+      url: webview.src,
+      scrollPos: { x: 0, y: 0 }, // We can add scroll position capture if needed
+      history: {
+        canGoBack: webview.canGoBack(),
+        canGoForward: webview.canGoForward()
+      }
+    };
+  }
+  
+  // Restore tab state when switching tabs
+  function restoreTabState(tabId) {
+    if (!tabId || !tabStates[tabId]) return;
+    
+    const state = tabStates[tabId];
+    const tab = tabs.find(t => t.id === tabId);
+    
+    if (state.url !== webview.src) {
+      console.log(`Loading URL for tab ${tabId}: ${state.url}`);
+      webview.src = state.url || (tab?.url || getHomepagePath());
+    }
+    
+    // Update navigation buttons based on saved history state
+    if (state.history) {
+      updateCustomNavigationState(state.history);
+    } else {
+      // Wait for the webview to update
+      setTimeout(updateNavigationState, 100);
+    }
+  }
+  
+  // Custom update for navigation buttons without calling webview methods
+  function updateCustomNavigationState(historyState) {
+    if (backButton) backButton.classList.toggle('disabled', !historyState.canGoBack);
+    if (forwardButton) forwardButton.classList.toggle('disabled', !historyState.canGoForward);
   }
 
   // ------------------ Tab Management ------------------
@@ -144,19 +306,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const activeTab = tabs.find(tab => tab.active) || tabs[0];
           activeTabId = activeTab.id;
           
-          // Make sure we render tabs before navigating
           renderTabs();
           
-          // Ensure we navigate to the active tab's URL
-          setTimeout(() => {
-            navigateToUrl(activeTab.url);
-            urlInput.value = formatUrlForDisplay(activeTab.url);
-          }, 100);
+          // Navigate to active tab's URL
+          navigateToUrl(activeTab.url);
+          urlInput.value = formatUrlForDisplay(activeTab.url);
         } else {
-          createNewTab(); // Create new tab if no saved tabs
+          createNewTab();
         }
       } else {
-        createNewTab(); // Create new tab for first-time users
+        createNewTab();
       }
     } catch (error) {
       console.error('Error initializing tabs:', error);
@@ -164,44 +323,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function createNewTab() {
-    console.log('Creating new tab');
+  function createNewTab(initialUrl = 'homepage.html') {
+    // Check if the parameter is an event object (prevents [object PointerEvent] issue)
+    if (initialUrl && typeof initialUrl === 'object' && initialUrl.type) {
+      initialUrl = 'homepage.html';
+    }
+    
+    console.log('Creating new tab with URL:', initialUrl);
     const tabId = 'tab-' + Date.now();
     const newTab = {
       id: tabId,
       title: 'New Tab',
-      url: 'homepage.html', // New tabs load the homepage
+      url: initialUrl,
       favicon: '',
       active: true
     };
     
+    // Set all other tabs as inactive
     tabs.forEach(tab => tab.active = false);
     tabs.push(newTab);
     activeTabId = tabId;
     
-    // Render the tabs first
     renderTabs();
+    navigateToUrl(initialUrl);
     
-    // Then navigate to the homepage with a slight delay to ensure proper loading
-    setTimeout(() => {
-      navigateToUrl('homepage.html');
+    if (initialUrl === 'homepage.html') {
       urlInput.value = '';
       urlInput.focus();
-    }, 50);
+    } else {
+      urlInput.value = formatUrlForDisplay(initialUrl);
+    }
     
     saveTabs();
+    return tabId;
   }
 
-  function renderTabs() {
-    // Store existing tabs to prevent unnecessary DOM operations
+  const renderTabs = throttle(function() {
+    // Efficient tab rendering
+    const fragment = document.createDocumentFragment();
+    
+    // Keep track of existing tabs
     const existingTabs = {};
     document.querySelectorAll('.tab').forEach(tab => {
       existingTabs[tab.dataset.id] = tab;
     });
     
-    const fragment = document.createDocumentFragment();
+    // Tabs that will be removed
     const tabsToRemove = [];
     
+    // Process tabs
     tabs.forEach(tab => {
       let tabElement;
       
@@ -213,24 +383,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update active state
         tabElement.classList.toggle('active', tab.id === activeTabId);
         
-        // Update favicon
+        // Update tab content only when needed
         const faviconDiv = tabElement.querySelector('.tab-favicon');
         if (faviconDiv) {
-          if (tab.favicon) {
+          if (tab.favicon && !faviconDiv.querySelector('img')) {
             faviconDiv.innerHTML = `<img src="${tab.favicon}" alt="">`;
-          } else {
+          } else if (!tab.favicon && !faviconDiv.querySelector('.material-symbols-rounded')) {
             faviconDiv.innerHTML = `<span class="material-symbols-rounded">public</span>`;
           }
         }
         
-        // Update title
         const titleDiv = tabElement.querySelector('.tab-title');
-        if (titleDiv) {
+        if (titleDiv && titleDiv.textContent !== tab.title) {
           titleDiv.textContent = tab.title || 'New Tab';
         }
         
-        // Update data-title attribute for tooltips in collapsed state
-        tabElement.setAttribute('data-title', tab.title || 'New Tab');
+        if (tabElement.getAttribute('data-title') !== tab.title) {
+          tabElement.setAttribute('data-title', tab.title || 'New Tab');
+        }
       } else {
         // Create new tab element
         tabElement = document.createElement('div');
@@ -242,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
           tabElement.classList.add('active');
         }
         
-        // Create favicon element
+        // Create tab content
         const favicon = document.createElement('div');
         favicon.className = 'tab-favicon';
         if (tab.favicon) {
@@ -251,12 +421,10 @@ document.addEventListener('DOMContentLoaded', () => {
           favicon.innerHTML = `<span class="material-symbols-rounded">public</span>`;
         }
         
-        // Create title element
         const title = document.createElement('div');
         title.className = 'tab-title';
         title.textContent = tab.title || 'New Tab';
         
-        // Create close button
         const closeBtn = document.createElement('button');
         closeBtn.className = 'tab-close';
         closeBtn.innerHTML = `<span class="material-symbols-rounded">close</span>`;
@@ -284,47 +452,53 @@ document.addEventListener('DOMContentLoaded', () => {
       fragment.appendChild(tabElement);
     });
     
-    // Collect tabs to remove
+    // Mark remaining tabs for removal
     Object.values(existingTabs).forEach(tab => tabsToRemove.push(tab));
     
-    // Clear and repopulate tabs container
+    // Update DOM efficiently
     if (tabsContainer) {
-      while (tabsContainer.firstChild) {
-        tabsContainer.removeChild(tabsContainer.firstChild);
-      }
+      tabsContainer.innerHTML = '';
       tabsContainer.appendChild(fragment);
+      
+      // Remove old tabs
+      tabsToRemove.forEach(tab => {
+        if (tab.parentNode) tab.parentNode.removeChild(tab);
+      });
     }
-    
-    // Remove old tabs
-    tabsToRemove.forEach(tab => {
-      if (tab.parentNode) tab.parentNode.removeChild(tab);
-    });
-  }
+  }, 100); // Throttle tab rendering to 100ms
 
   function setActiveTab(tabId) {
     const tab = tabs.find(t => t.id === tabId);
-    if (!tab) return;
+    if (!tab || tabId === activeTabId) return;
     
+    // Save current tab state
+    if (activeTabId) {
+      saveTabState(activeTabId);
+    }
+    
+    // Update active tab
     tabs.forEach(t => t.active = (t.id === tabId));
     activeTabId = tabId;
     
+    // Update UI
     document.querySelectorAll('.tab').forEach(el => {
       el.classList.toggle('active', el.dataset.id === tabId);
     });
     
-    requestAnimationFrame(() => {
-      if (webview.src !== tab.url) navigateToUrl(tab.url);
-      urlInput.value = formatUrlForDisplay(tab.url);
-    });
+    // Restore the tab state
+    restoreTabState(tabId);
     
-    if (saveTabsTimeout) clearTimeout(saveTabsTimeout);
-    saveTabsTimeout = setTimeout(saveTabs, 300);
+    // Update URL input
+    urlInput.value = formatUrlForDisplay(tab.url);
+    
+    saveTabs();
   }
 
   function closeTab(tabId) {
     if (tabs.length <= 1) {
       createNewTab();
       tabs = tabs.filter(t => t.id !== tabId);
+      delete tabStates[tabId];
       saveTabs();
       return;
     }
@@ -333,15 +507,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index === -1) return;
     
     const isActive = (tabId === activeTabId);
+    
+    // Clean up tab state
+    delete tabStates[tabId];
+    
+    // Remove tab from list
     tabs = tabs.filter(t => t.id !== tabId);
     
     if (isActive) {
+      // Activate another tab
       const newActiveIndex = Math.min(index, tabs.length - 1);
       tabs[newActiveIndex].active = true;
       activeTabId = tabs[newActiveIndex].id;
-      navigateToUrl(tabs[newActiveIndex].url);
-      urlInput.value = (tabs[newActiveIndex].url !== 'about:blank') ? 
-                       formatUrlForDisplay(tabs[newActiveIndex].url) : '';
+      
+      // Restore the new active tab
+      restoreTabState(activeTabId);
+      
+      // Update URL display
+      urlInput.value = formatUrlForDisplay(tabs[newActiveIndex].url);
     }
     
     renderTabs();
@@ -349,41 +532,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function saveTabs() {
-    try {
-      localStorage.setItem('browser-tabs', JSON.stringify(tabs));
-    } catch (error) {
-      console.error('Error saving tabs:', error);
-    }
+    if (saveTabsTimeout) clearTimeout(saveTabsTimeout);
+    saveTabsTimeout = setTimeout(() => {
+      try {
+        localStorage.setItem('browser-tabs', JSON.stringify(tabs));
+      } catch (error) {
+        console.error('Error saving tabs:', error);
+      }
+    }, 300);
   }
 
   // ------------------ Navigation & URL Handling ------------------
   function navigateToUrl(url) {
     console.log('Navigating to:', url);
     if (!url || url === 'about:blank') {
-      // Default to homepage instead of about:blank
-      const homepagePath = `file://${window.appPath.appDir}/homepage.html`;
-      console.log('Default navigation redirected to homepage:', homepagePath);
-      webview.src = homepagePath;
-      return;
-    }
-    
-    if (url === 'homepage.html') {
-      const homepagePath = `file://${window.appPath.appDir}/homepage.html`;
-      console.log('Loading homepage from:', homepagePath);
-      webview.src = homepagePath;
-      
-      // Update the active tab to reflect we're on the homepage
-      const activeTab = tabs.find(t => t.id === activeTabId);
-      if (activeTab) {
-        activeTab.url = homepagePath;
-        activeTab.title = 'New Tab';
-        saveTabs();
-      }
-      return;
+      url = 'homepage.html';
     }
     
     let formattedUrl = url;
-    if (!/^(https?:\/\/|file:\/\/|about:)/i.test(url)) {
+    
+    if (url === 'homepage.html') {
+      formattedUrl = getHomepagePath();
+      
+      // Update the active tab
+      const tab = tabs.find(t => t.id === activeTabId);
+      if (tab) {
+        tab.url = formattedUrl;
+        tab.title = 'New Tab';
+        saveTabs();
+      }
+    } else if (!/^(https?:\/\/|file:\/\/|about:)/i.test(url)) {
       if (/^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/.test(url)) {
         formattedUrl = 'https://' + url;
       } else {
@@ -392,65 +570,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     console.log('Formatted URL:', formattedUrl);
-    webview.src = formattedUrl;
-    window.electronAPI.navigateToUrl(formattedUrl);
     
-    const activeTab = tabs.find(t => t.id === activeTabId);
-    if (activeTab) {
-      activeTab.url = formattedUrl;
-      saveTabs();
+    // Configure loading state
+    loadingBar.classList.add('loading');
+    
+    // Perform the navigation
+    try {
+      webview.src = formattedUrl;
+      
+      // Update tab info
+      const tab = tabs.find(t => t.id === activeTabId);
+      if (tab) {
+        tab.url = formattedUrl;
+        saveTabs();
+      }
+      
+      // Update URL input
+      urlInput.value = formatUrlForDisplay(formattedUrl);
+      
+      // Notify main process (if needed)
+      window.electronAPI.navigateToUrl(formattedUrl);
+    } catch (error) {
+      console.error('Error navigating:', error);
+      loadingBar.classList.remove('loading');
+      showNotification('Failed to load page', 'error');
     }
-  }
-
-  // Add webview event listeners
-  if (webview) {
-    webview.addEventListener('did-navigate', (e) => {
-      urlInput.value = formatUrlForDisplay(e.url);
-      const activeTab = tabs.find(t => t.id === activeTabId);
-      if (activeTab) {
-        activeTab.url = e.url;
-        saveTabs();
-      }
-    });
-
-    // Update navigation button states
-    webview.addEventListener('did-start-navigation', updateNavigationState);
-    webview.addEventListener('did-navigate', updateNavigationState);
-    webview.addEventListener('did-navigate-in-page', updateNavigationState);
-    
-    // Loading indicator
-    webview.addEventListener('did-start-loading', () => { 
-      loadingBar.classList.add('loading'); 
-    });
-    
-    webview.addEventListener('did-stop-loading', () => { 
-      loadingBar.classList.remove('loading'); 
-    });
-    
-    webview.addEventListener('page-title-updated', (e) => {
-      const activeTab = tabs.find(t => t.id === activeTabId);
-      if (activeTab) {
-        activeTab.title = e.title;
-        // Update the tab element's data-title attribute for tooltip
-        const tabElement = document.querySelector(`.tab[data-id="${activeTabId}"]`);
-        if (tabElement) {
-          tabElement.setAttribute('data-title', e.title);
-        }
-        renderTabs();
-        saveTabs();
-      }
-    });
-    
-    webview.addEventListener('page-favicon-updated', (e) => {
-      if (e.favicons && e.favicons.length > 0) {
-        const activeTab = tabs.find(t => t.id === activeTabId);
-        if (activeTab) {
-          activeTab.favicon = e.favicons[0];
-          renderTabs();
-          saveTabs();
-        }
-      }
-    });
   }
 
   // ------------------ URL Form Submission ------------------
@@ -490,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ------------------ Navigation Buttons ------------------
   if (backButton) {
     backButton.addEventListener('click', () => {
-      if (webview && webview.canGoBack()) {
+      if (webview.canGoBack()) {
         webview.goBack();
       }
     });
@@ -498,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (forwardButton) {
     forwardButton.addEventListener('click', () => {
-      if (webview && webview.canGoForward()) {
+      if (webview.canGoForward()) {
         webview.goForward();
       }
     });
@@ -506,25 +650,27 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (reloadButton) {
     reloadButton.addEventListener('click', () => {
-      if (webview) {
-        webview.reload();
-      }
+      webview.reload();
     });
   }
   
   function updateNavigationState() {
-    requestAnimationFrame(() => {
-      if (webview) {
-        if (backButton) backButton.classList.toggle('disabled', !webview.canGoBack());
-        if (forwardButton) forwardButton.classList.toggle('disabled', !webview.canGoForward());
-      }
-    });
+    if (backButton) backButton.classList.toggle('disabled', !webview.canGoBack());
+    if (forwardButton) forwardButton.classList.toggle('disabled', !webview.canGoForward());
+    
+    // Update the active tab's history state
+    if (activeTabId && tabStates[activeTabId]) {
+      tabStates[activeTabId].history = {
+        canGoBack: webview.canGoBack(),
+        canGoForward: webview.canGoForward()
+      };
+    }
   }
 
   // ------------------ New Tab Button ------------------
   if (newTabButton) {
-    newTabButton.addEventListener('click', () => { 
-      createNewTab(); 
+    newTabButton.addEventListener('click', () => {
+      createNewTab(); // Call without passing the event
     });
   }
 
@@ -688,6 +834,137 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------ Extensions Panel ------------------
+  const renderExtensions = throttle(function() {
+    const extensionsList = document.getElementById('extensions-list');
+    const quickExtensionsList = document.getElementById('quick-extensions-list');
+    
+    // Clear previous content
+    if (quickExtensionsList) quickExtensionsList.innerHTML = '';
+    if (extensionsList) extensionsList.innerHTML = '';
+    
+    if (extensions.length === 0) {
+      // Show empty state in quick panel
+      if (quickExtensionsList) {
+        const emptyState = document.createElement('div');
+        emptyState.className = 'extension-empty-state';
+        emptyState.innerHTML = `
+          <span class="material-symbols-rounded">extension</span>
+          <p>No extensions installed</p>
+          <button id="browse-extensions">Browse Extensions</button>
+        `;
+        quickExtensionsList.appendChild(emptyState);
+        
+        // Add event listener to the browse button
+        const browseButton = document.getElementById('browse-extensions');
+        if (browseButton) {
+          browseButton.addEventListener('click', () => {
+            // Open settings panel to extensions tab
+            settingsPanel.classList.add('active');
+            isSettingsPanelOpen = true;
+            
+            document.querySelector('[data-tab="extensions"]')?.classList.add('active');
+            document.getElementById('extensions-tab')?.classList.add('active');
+            
+            extensionsPanel.classList.remove('active');
+            isExtensionsPanelOpen = false;
+          });
+        }
+      }
+      
+      // Show empty state in settings panel
+      if (extensionsList) {
+        extensionsList.innerHTML = '<div class="empty-state">No extensions installed.</div>';
+      }
+      
+      return;
+    }
+    
+    // Render extensions
+    if (quickExtensionsList) {
+      const fragment = document.createDocumentFragment();
+      
+      extensions.forEach(ext => {
+        const extensionItem = document.createElement('div');
+        extensionItem.className = `extension-quick-item${ext.enabled ? '' : ' disabled'}`;
+        extensionItem.innerHTML = `
+          <div class="extension-icon">
+            <span class="material-symbols-rounded">${getExtensionIcon(ext.type)}</span>
+          </div>
+          <div class="extension-quick-info">
+            <div class="extension-name">${ext.name}</div>
+            <div class="extension-toggle">
+              <label class="toggle-switch">
+                <input type="checkbox" ${ext.enabled ? 'checked' : ''}>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        `;
+        
+        // Add event listener to toggle
+        const toggle = extensionItem.querySelector('input[type="checkbox"]');
+        toggle.addEventListener('change', () => {
+          ext.enabled = toggle.checked;
+          extensionItem.classList.toggle('disabled', !ext.enabled);
+          saveExtensions();
+          
+          showNotification(`${ext.name} ${ext.enabled ? 'enabled' : 'disabled'}`, 'success');
+        });
+        
+        fragment.appendChild(extensionItem);
+      });
+      
+      quickExtensionsList.appendChild(fragment);
+    }
+    
+    // Render in settings panel
+    if (extensionsList) {
+      const fragment = document.createDocumentFragment();
+      
+      extensions.forEach(ext => {
+        const extensionItem = document.createElement('div');
+        extensionItem.className = 'extension-item';
+        extensionItem.innerHTML = `
+          <div class="extension-card">
+            <div class="extension-icon">
+              <span class="material-symbols-rounded">${getExtensionIcon(ext.type)}</span>
+            </div>
+            <div class="extension-details">
+              <h4>${ext.name}</h4>
+              <p>${ext.description || 'Chrome extension'}</p>
+              <div class="extension-controls">
+                <label class="toggle-switch">
+                  <input type="checkbox" ${ext.enabled ? 'checked' : ''}>
+                  <span class="toggle-slider"></span>
+                </label>
+                <button class="remove-extension">Remove</button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Add event listeners
+        const toggle = extensionItem.querySelector('input[type="checkbox"]');
+        toggle.addEventListener('change', () => {
+          ext.enabled = toggle.checked;
+          saveExtensions();
+        });
+        
+        const removeButton = extensionItem.querySelector('.remove-extension');
+        removeButton.addEventListener('click', () => {
+          extensions = extensions.filter(e => e.id !== ext.id);
+          saveExtensions();
+          renderExtensions();
+          showNotification(`${ext.name} removed`, 'success');
+        });
+        
+        fragment.appendChild(extensionItem);
+      });
+      
+      extensionsList.appendChild(fragment);
+    }
+  }, 300);
+  
   if (extensionsButton) {
     extensionsButton.addEventListener('click', () => {
       isExtensionsPanelOpen = !isExtensionsPanelOpen;
@@ -715,145 +992,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isExtensionsPanelOpen = false;
     }
   });
-  
-  function renderExtensions() {
-    const extensionsList = document.getElementById('extensions-list');
-    const quickExtensionsList = document.getElementById('quick-extensions-list');
-    
-    // Clear previous content
-    if (quickExtensionsList) {
-      quickExtensionsList.innerHTML = '';
-    }
-    
-    if (extensionsList) {
-      extensionsList.innerHTML = '';
-    }
-    
-    if (extensions.length === 0) {
-      // Show empty state in quick panel
-      if (quickExtensionsList) {
-        const emptyState = document.createElement('div');
-        emptyState.className = 'extension-empty-state';
-        emptyState.innerHTML = `
-          <span class="material-symbols-rounded">extension</span>
-          <p>No extensions installed</p>
-          <button id="browse-extensions">Browse Extensions</button>
-        `;
-        quickExtensionsList.appendChild(emptyState);
-        
-        // Add event listener to the browse button
-        const browseButton = document.getElementById('browse-extensions');
-        if (browseButton) {
-          browseButton.addEventListener('click', () => {
-            // Open settings panel to extensions tab
-            settingsPanel.classList.add('active');
-            isSettingsPanelOpen = true;
-            
-            // Select extensions tab
-            document.querySelectorAll('.settings-tab-button').forEach(tab => {
-              tab.classList.remove('active');
-            });
-            document.querySelectorAll('.settings-tab-content').forEach(content => {
-              content.classList.remove('active');
-            });
-            
-            document.querySelector('[data-tab="extensions"]').classList.add('active');
-            document.getElementById('extensions-tab').classList.add('active');
-            
-            // Close extensions panel
-            extensionsPanel.classList.remove('active');
-            isExtensionsPanelOpen = false;
-          });
-        }
-      }
-      
-      // Show empty state in settings panel
-      if (extensionsList) {
-        extensionsList.innerHTML = '<div class="empty-state">No extensions installed.</div>';
-      }
-      
-      return;
-    }
-    
-    // Render in quick panel
-    if (quickExtensionsList) {
-      extensions.forEach(ext => {
-        const extensionItem = document.createElement('div');
-        extensionItem.className = `extension-quick-item${ext.enabled ? '' : ' disabled'}`;
-        extensionItem.innerHTML = `
-          <div class="extension-icon">
-            <span class="material-symbols-rounded">${getExtensionIcon(ext.type)}</span>
-          </div>
-          <div class="extension-quick-info">
-            <div class="extension-name">${ext.name}</div>
-            <div class="extension-toggle">
-              <label class="toggle-switch">
-                <input type="checkbox" ${ext.enabled ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          </div>
-        `;
-        
-        quickExtensionsList.appendChild(extensionItem);
-        
-        // Add event listener to toggle
-        const toggle = extensionItem.querySelector('input[type="checkbox"]');
-        toggle.addEventListener('change', () => {
-          ext.enabled = toggle.checked;
-          extensionItem.classList.toggle('disabled', !ext.enabled);
-          saveExtensions();
-          
-          // Show notification
-          showNotification(`${ext.name} ${ext.enabled ? 'enabled' : 'disabled'}`, 'success');
-        });
-      });
-    }
-    
-    // Render in settings panel
-    if (extensionsList) {
-      extensions.forEach(ext => {
-        const extensionItem = document.createElement('div');
-        extensionItem.className = 'extension-item';
-        extensionItem.innerHTML = `
-          <div class="extension-card">
-            <div class="extension-icon">
-              <span class="material-symbols-rounded">${getExtensionIcon(ext.type)}</span>
-            </div>
-            <div class="extension-details">
-              <h4>${ext.name}</h4>
-              <p>${ext.description || 'Chrome extension'}</p>
-              <div class="extension-controls">
-                <label class="toggle-switch">
-                  <input type="checkbox" ${ext.enabled ? 'checked' : ''}>
-                  <span class="toggle-slider"></span>
-                </label>
-                <button class="remove-extension">Remove</button>
-              </div>
-            </div>
-          </div>
-        `;
-        
-        extensionsList.appendChild(extensionItem);
-        
-        // Add event listeners
-        const toggle = extensionItem.querySelector('input[type="checkbox"]');
-        toggle.addEventListener('change', () => {
-          ext.enabled = toggle.checked;
-          saveExtensions();
-          renderExtensions();
-        });
-        
-        const removeButton = extensionItem.querySelector('.remove-extension');
-        removeButton.addEventListener('click', () => {
-          extensions = extensions.filter(e => e.id !== ext.id);
-          saveExtensions();
-          renderExtensions();
-          showNotification(`${ext.name} removed`, 'success');
-        });
-      });
-    }
-  }
   
   function getExtensionIcon(type) {
     switch (type) {
@@ -1023,59 +1161,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Extension management functions
-  document.addEventListener('DOMContentLoaded', () => {
-    // Setting up extension-related event listeners
-    const installExtension = document.getElementById('install-extension');
-    const extensionId = document.getElementById('extension-id');
-    const extensionStore = document.getElementById('extension-store');
-    const reloadExtensions = document.getElementById('reload-extensions');
-    const popularExtensionButtons = document.querySelectorAll('.install-popular-extension');
-    
-    if (installExtension && extensionId) {
-      installExtension.addEventListener('click', () => {
-        const id = extensionId.value.trim();
-        if (id) {
-          addExtension(id);
-          extensionId.value = '';
-        } else {
-          showNotification('Please enter a valid extension ID', 'error');
-        }
-      });
-    }
-    
-    if (extensionStore) {
-      extensionStore.addEventListener('click', () => {
-        // Open Chrome Web Store in new tab
-        createNewTab();
-        navigateToUrl('https://chrome.google.com/webstore/category/extensions');
-      });
-    }
-    
-    if (reloadExtensions) {
-      reloadExtensions.addEventListener('click', () => {
-        // Simulate reloading extensions
-        showNotification('Extensions reloaded', 'success');
-      });
-    }
-    
-    if (popularExtensionButtons.length > 0) {
-      popularExtensionButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const card = button.closest('.extension-card');
-          if (card && card.dataset.id) {
-            addExtension(card.dataset.id);
-          }
-        });
-      });
-    }
-    
-    // Initialize settings panel tabs
-    const templateTab = document.querySelector('[data-tab="templates"]');
-    if (templateTab) {
-      templateTab.addEventListener('click', initTemplateHandlers);
-    }
-  });
-  
   function addExtension(id) {
     // Check if extension already exists
     const existingExt = extensions.find(ext => ext.id === id);
@@ -1138,6 +1223,59 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotification(`${newExtension.name} installed successfully`, 'success');
   }
 
+  // Set up extension button listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    // Setting up extension-related event listeners
+    const installExtension = document.getElementById('install-extension');
+    const extensionId = document.getElementById('extension-id');
+    const extensionStore = document.getElementById('extension-store');
+    const reloadExtensions = document.getElementById('reload-extensions');
+    const popularExtensionButtons = document.querySelectorAll('.install-popular-extension');
+    
+    if (installExtension && extensionId) {
+      installExtension.addEventListener('click', () => {
+        const id = extensionId.value.trim();
+        if (id) {
+          addExtension(id);
+          extensionId.value = '';
+        } else {
+          showNotification('Please enter a valid extension ID', 'error');
+        }
+      });
+    }
+    
+    if (extensionStore) {
+      extensionStore.addEventListener('click', () => {
+        // Open Chrome Web Store in new tab
+        createNewTab('https://chrome.google.com/webstore/category/extensions');
+      });
+    }
+    
+    if (reloadExtensions) {
+      reloadExtensions.addEventListener('click', () => {
+        // Simulate reloading extensions
+        showNotification('Extensions reloaded', 'success');
+      });
+    }
+    
+    if (popularExtensionButtons.length > 0) {
+      popularExtensionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const card = button.closest('.extension-card');
+          if (card && card.dataset.id) {
+            addExtension(card.dataset.id);
+          }
+        });
+      });
+    }
+    
+    // Initialize settings panel tabs
+    const templateTab = document.querySelector('[data-tab="templates"]');
+    if (templateTab) {
+      templateTab.addEventListener('click', initTemplateHandlers);
+    }
+  });
+
   // ------------------ Global Keyboard Shortcuts ------------------
   window.addEventListener('keydown', handleKeyDown);
   function handleKeyDown(e) {
@@ -1175,12 +1313,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Reload page (F5 or Ctrl+R)
     if (e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
-      if (webview) webview.reload();
+      webview.reload();
       e.preventDefault();
       return;
     }
     
-    // Escape key to clos     e panels
+    // Escape key to close panels
     if (e.key === 'Escape') {
       if (isSettingsPanelOpen && settingsPanel) {
         settingsPanel.classList.remove('active');
