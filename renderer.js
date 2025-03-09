@@ -543,6 +543,181 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Add this to your renderer.js file or create a separate script file and include it in your HTML
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Get references to the settings button and panel
+  const settingsButton = document.getElementById('settings-button');
+  const settingsPanel = document.getElementById('settings-panel');
+  
+  // Check if elements exist
+  if (settingsButton && settingsPanel) {
+    // Remove any existing event listeners (to prevent duplicates)
+    const newSettingsButton = settingsButton.cloneNode(true);
+    settingsButton.parentNode.replaceChild(newSettingsButton, settingsButton);
+    
+    // Add event listener to toggle settings panel
+    newSettingsButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Settings button clicked'); // Debug log
+      
+      // Toggle active class on settings panel
+      settingsPanel.classList.toggle('active');
+      
+      // Close extensions panel if open
+      const extensionsPanel = document.getElementById('extensions-panel');
+      if (extensionsPanel && extensionsPanel.classList.contains('active')) {
+        extensionsPanel.classList.remove('active');
+      }
+      
+      // Clicked outside of settings panel should close it
+      if (settingsPanel.classList.contains('active')) {
+        document.addEventListener('click', closeSettingsPanelOutside);
+      } else {
+        document.removeEventListener('click', closeSettingsPanelOutside);
+      }
+    });
+    
+    // Close settings panel when clicked outside
+    function closeSettingsPanelOutside(e) {
+      if (!settingsPanel.contains(e.target) && e.target !== newSettingsButton) {
+        settingsPanel.classList.remove('active');
+        document.removeEventListener('click', closeSettingsPanelOutside);
+      }
+    }
+    
+    // Also fix settings tab buttons if they exist
+    const settingsTabButtons = document.querySelectorAll('.settings-tab-button');
+    const settingsTabContents = document.querySelectorAll('.settings-tab-content');
+    
+    settingsTabButtons.forEach(button => {
+      // Clone to remove any existing event listeners
+      const newButton = button.cloneNode(true);
+      button.parentNode.replaceChild(newButton, button);
+      
+      // Add event listener
+      newButton.addEventListener('click', () => {
+        // Get tab to show
+        const tabToShow = newButton.dataset.tab;
+        
+        // Update active state on buttons
+        settingsTabButtons.forEach(btn => {
+          btn.classList.toggle('active', btn === newButton);
+        });
+        
+        // Update active state on tab contents
+        settingsTabContents.forEach(content => {
+          const isActive = content.id === `${tabToShow}-tab`;
+          content.classList.toggle('active', isActive);
+        });
+      });
+    });
+    
+    // Fix extensions button too
+    const extensionsButton = document.getElementById('extensions-button');
+    const extensionsPanel = document.getElementById('extensions-panel');
+    
+    if (extensionsButton && extensionsPanel) {
+      // Remove any existing event listeners
+      const newExtensionsButton = extensionsButton.cloneNode(true);
+      extensionsButton.parentNode.replaceChild(newExtensionsButton, extensionsButton);
+      
+      // Add event listener
+      newExtensionsButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Toggle active class on extensions panel
+        extensionsPanel.classList.toggle('active');
+        
+        // Close settings panel if open
+        if (settingsPanel.classList.contains('active')) {
+          settingsPanel.classList.remove('active');
+        }
+        
+        // Clicked outside of extensions panel should close it
+        if (extensionsPanel.classList.contains('active')) {
+          document.addEventListener('click', closeExtensionsPanelOutside);
+        } else {
+          document.removeEventListener('click', closeExtensionsPanelOutside);
+        }
+      });
+      
+      // Close extensions panel when clicked outside
+      function closeExtensionsPanelOutside(e) {
+        if (!extensionsPanel.contains(e.target) && e.target !== newExtensionsButton) {
+          extensionsPanel.classList.remove('active');
+          document.removeEventListener('click', closeExtensionsPanelOutside);
+        }
+      }
+    }
+  } else {
+    console.error('Settings button or panel not found');
+  }
+  
+  // Ensure the settings panel has the correct CSS
+  const styleCheck = document.createElement('style');
+  styleCheck.textContent = `
+    #settings-panel {
+      position: absolute;
+      top: calc(var(--toolbar-height) + 8px);
+      right: 16px;
+      width: 420px;
+      background: var(--card-bg);
+      border-radius: var(--global-radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      padding: 24px;
+      transform: translateY(-20px);
+      opacity: 0;
+      pointer-events: none;
+      overflow-y: auto;
+      max-height: calc(100vh - var(--toolbar-height) - 32px);
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #settings-panel.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Make sure settings button has proper styling */
+    #settings-button {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--button-bg);
+      border: none;
+      cursor: pointer;
+      border-radius: var(--button-radius);
+      color: var(--text-secondary);
+      margin-left: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+  `;
+  document.head.appendChild(styleCheck);
+  
+  // Debug any missing elements
+  console.log('Settings Button Element:', settingsButton);
+  console.log('Settings Panel Element:', settingsPanel);
+  
+  // Add a global keyboard shortcut (Ctrl+,) for opening settings
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === ',') {
+      e.preventDefault();
+      if (settingsPanel) {
+        settingsPanel.classList.toggle('active');
+      }
+    }
+  });
+});
+
+
   // ------------------ Event Listeners ------------------
   
   // New tab button
