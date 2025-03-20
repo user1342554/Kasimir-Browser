@@ -2353,4 +2353,569 @@ body[data-tab-size="3"] .tab-favicon {
 
 .theme-loading-indicator {
   z-index: 999;
+} 
+
+/* =================== NEW THEME SKINS =================== */
+
+/* 1. Modern Minimalistic - Dark */
+[data-theme="minimalist-dark"] {
+  --bg-color: #0f0f0f;
+  --sidebar-bg: #161616;
+  --toolbar-bg: #161616;
+  --card-bg: #1e1e1e;
+  --hover-bg: #282828;
+  --active-bg: #303030;
+  --text-color: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --border-color: #303030;
+  
+  --accent-primary: #616FEE;
+  --accent-secondary: #4E5BD0;
+  --accent-tertiary: #8691FF;
+  
+  --input-bg: #252525;
+  --input-focus-bg: #303030;
+  --close-hover: #FF4477;
+  --button-bg: #252525;
+  --button-hover: #333333;
+  
+  --global-radius: 8px;
+  --button-radius: 8px;
+  --input-radius: 8px;
+  
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.15);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.15);
+  --shadow-lg: 0 6px 12px rgba(0,0,0,0.15);
 }
+
+/* Modern Minimalistic - Light */
+[data-theme="minimalist-light"] {
+  --bg-color: #ffffff;
+  --sidebar-bg: #f5f5f5;
+  --toolbar-bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --hover-bg: #f0f0f0;
+  --active-bg: #e8e8e8;
+  --text-color: #191919;
+  --text-secondary: #616161;
+  --border-color: #e0e0e0;
+  
+  --accent-primary: #616FEE;
+  --accent-secondary: #4E5BD0;
+  --accent-tertiary: #8691FF;
+  
+  --input-bg: #f7f7f7;
+  --input-focus-bg: #ffffff;
+  --close-hover: #FF4477;
+  --button-bg: #f0f0f0;
+  --button-hover: #e5e5e5;
+  
+  --global-radius: 8px;
+  --button-radius: 8px;
+  --input-radius: 8px;
+  
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.08);
+  --shadow-lg: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* 2. Retro Combo Theme - Combines Windows XP, 98, and early 2000s web */
+[data-theme="retro-combo"] {
+  --bg-color: #ECE9D8;
+  --sidebar-bg: #D4D0C8;
+  --toolbar-bg: #316AC5;
+  --card-bg: #FFFFFF;
+  --hover-bg: #FFE7A2;
+  --active-bg: #FFC83C;
+  --text-color: #000000;
+  --text-secondary: #444444;
+  --border-color: #B5B3A9;
+  
+  --accent-primary: #0000FF;
+  --accent-secondary: #FF00FF;
+  --accent-tertiary: #FF0000;
+  
+  --input-bg: #FFFFFF;
+  --input-focus-bg: #F5F5FF;
+  --close-hover: #FF0000;
+  --button-bg: #D4D0C8;
+  --button-hover: #B5B3A9;
+  
+  --global-radius: 0;
+  --button-radius: 0;
+  --input-radius: 0;
+  
+  --shadow-sm: 2px 2px 0 #808080;
+  --shadow-md: 3px 3px 0 #808080;
+  --shadow-lg: 4px 4px 0 #808080;
+  
+  /* Special retro styling overrides */
+  --retro-font: "Times New Roman", Times, serif;
+  --winxp-gradient: linear-gradient(to bottom, #E9FCF9 0%, #CEEEFA 25%, #A5DFEF 50%, #8ED4E7 51%, #D3F4FB 100%);
+  --win9x-white-border: #FFFFFF;
+  --win9x-black-border: #000000;
+}
+
+/* 3. Frutiger Metro Design */
+[data-theme="metro"] {
+  --bg-color: #1B1B1B;
+  --sidebar-bg: #252525;
+  --toolbar-bg: #252525;
+  --card-bg: #2D2D2D;
+  --hover-bg: #3a3a3a;
+  --active-bg: #424242;
+  --text-color: #FFFFFF;
+  --text-secondary: #BBBBBB;
+  --border-color: #424242;
+  
+  --accent-primary: #00BCF2;
+  --accent-secondary: #009DCD;
+  --accent-tertiary: #57D0FF;
+  
+  --input-bg: #3a3a3a;
+  --input-focus-bg: #424242;
+  --close-hover: #E81123;
+  --button-bg: #3a3a3a;
+  --button-hover: #4a4a4a;
+  
+  --global-radius: 0;
+  --button-radius: 0;
+  --input-radius: 0;
+  
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+
+/* =================== THEME-SPECIFIC STYLING =================== */
+
+/* Modern Minimalistic Specific Styles */
+[data-theme="minimalist-dark"] .tab,
+[data-theme="minimalist-light"] .tab {
+  border-radius: var(--global-radius);
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+[data-theme="minimalist-dark"] .tab.active::before,
+[data-theme="minimalist-light"] .tab.active::before {
+  display: none;
+}
+
+[data-theme="minimalist-dark"] .tab.active,
+[data-theme="minimalist-light"] .tab.active {
+  border-left: 3px solid var(--accent-primary);
+}
+
+[data-theme="minimalist-dark"] #toolbar,
+[data-theme="minimalist-light"] #toolbar {
+  height: 70px;
+  background-color: var(--toolbar-bg);
+  border-bottom: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+[data-theme="minimalist-dark"] #url-form,
+[data-theme="minimalist-light"] #url-form {
+  border: none;
+  height: 46px;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="minimalist-dark"] .nav-button,
+[data-theme="minimalist-dark"] #settings-button,
+[data-theme="minimalist-light"] .nav-button,
+[data-theme="minimalist-light"] #settings-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Retro Combo Specific Styles */
+[data-theme="retro-combo"] body {
+  font-family: var(--retro-font);
+}
+
+[data-theme="retro-combo"] #toolbar {
+  background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 10%, #2F7CFC 90%, #205CBE 100%);
+  border-bottom: 1px solid #294C98;
+}
+
+[data-theme="retro-combo"] .tab {
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--win9x-white-border);
+  border-left: 1px solid var(--win9x-white-border);
+  border-right: 1px solid var(--win9x-black-border);
+  border-bottom: 1px solid var(--win9x-black-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+[data-theme="retro-combo"] .tab.active {
+  background-color: var(--active-bg);
+  border-top: 1px solid var(--win9x-black-border);
+  border-left: 1px solid var(--win9x-black-border);
+  border-right: 1px solid var(--win9x-white-border);
+  border-bottom: 1px solid var(--win9x-white-border);
+}
+
+[data-theme="retro-combo"] .tab::before {
+  display: none;
+}
+
+[data-theme="retro-combo"] #url-form {
+  border-radius: 0;
+  background-color: white;
+  border-top: 1px solid var(--win9x-black-border);
+  border-left: 1px solid var(--win9x-black-border);
+  border-right: 1px solid var(--win9x-white-border);
+  border-bottom: 1px solid var(--win9x-white-border);
+}
+
+[data-theme="retro-combo"] .nav-button,
+[data-theme="retro-combo"] #settings-button {
+  border-radius: 0;
+  background-color: var(--button-bg);
+  border-top: 1px solid var(--win9x-white-border);
+  border-left: 1px solid var(--win9x-white-border);
+  border-right: 1px solid var(--win9x-black-border);
+  border-bottom: 1px solid var(--win9x-black-border);
+  box-shadow: none;
+}
+
+[data-theme="retro-combo"] .nav-button:active,
+[data-theme="retro-combo"] #settings-button:active {
+  border-top: 1px solid var(--win9x-black-border);
+  border-left: 1px solid var(--win9x-black-border);
+  border-right: 1px solid var(--win9x-white-border);
+  border-bottom: 1px solid var(--win9x-white-border);
+}
+
+[data-theme="retro-combo"] .tab-favicon {
+  background-color: transparent;
+}
+
+[data-theme="retro-combo"] #new-tab-button {
+  border-radius: 0;
+  background-color: var(--button-bg);
+  border-top: 1px solid var(--win9x-white-border);
+  border-left: 1px solid var(--win9x-white-border);
+  border-right: 1px solid var(--win9x-black-border);
+  border-bottom: 1px solid var(--win9x-black-border);
+  box-shadow: none;
+}
+
+[data-theme="retro-combo"] .theme-preset.active {
+  border: 2px solid #0000FF;
+}
+
+/* Add Microsoft "Under Construction" GIF effect */
+[data-theme="retro-combo"] #webview-container::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+  background-image: url("data:image/gif;base64,R0lGODlhIAAgALMAAAAAAP///wAre6zY/pPO/oTI/YDD/XC8/Gm4+2W3+2O2+2C1+1+1+////wAAAAAAACH5BAEAAAIALAAAAAAgACAAAASbUMhJq714ary578kJhxgKYZ7BkaDptrLpeXIrX5+WnMd1TaglGvdDgRBDLtYi0Go9HqtFglL6bDqr1mwWO91+v97wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr/AwcLDxMXGx0AhADs=");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Add "hit counter" */
+[data-theme="retro-combo"] #webview-container::before {
+  content: 'Visitors: 12345';
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: #000080;
+  color: #FFFF00;
+  font-family: "Comic Sans MS", cursive;
+  font-size: 12px;
+  padding: 2px 5px;
+  border: 1px solid #FFFFFF;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Metro Design Specific Styles */
+[data-theme="metro"] .tab,
+[data-theme="metro"] .nav-button,
+[data-theme="metro"] #settings-button,
+[data-theme="metro"] #new-tab-button,
+[data-theme="metro"] #url-form {
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+[data-theme="metro"] .tab {
+  border-left: 3px solid transparent;
+}
+
+[data-theme="metro"] .tab.active {
+  border-left: 3px solid var(--accent-primary);
+}
+
+[data-theme="metro"] .tab::before {
+  display: none;
+}
+
+[data-theme="metro"] .tab-favicon {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+[data-theme="metro"] #toolbar {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+
+[data-theme="metro"] #url-form {
+  height: 50px;
+  background-color: var(--input-bg);
+}
+
+[data-theme="metro"] .nav-button,
+[data-theme="metro"] #settings-button {
+  width: 50px;
+  height: 50px;
+}
+
+[data-theme="metro"] .nav-button .material-symbols-rounded,
+[data-theme="metro"] #settings-button .material-symbols-rounded {
+  font-size: 24px;
+}
+
+[data-theme="metro"] #new-tab-button {
+  width: 100%;
+  height: 50px;
+  border-radius: 0;
+  background-color: var(--accent-primary);
+  color: white;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="metro"] #new-tab-button::after {
+  content: "New Tab";
+  margin-left: 8px;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+[data-theme="metro"] #sidebar {
+  width: 280px;
+}
+
+[data-theme="metro"] #tabs-container {
+  gap: 1px;
+  padding: 0;
+}
+
+[data-theme="metro"] .tab {
+  margin-bottom: 0;
+  padding: 16px;
+}
+
+/* Theme Presets for New Themes */
+.theme-preset.minimalist-dark {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1e1e1e 100%);
+  border: 1px solid #616FEE;
+}
+
+.theme-preset.minimalist-light {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+  border: 1px solid #616FEE;
+}
+
+.theme-preset.retro-combo {
+  background: linear-gradient(135deg, #ECE9D8 0%, #D4D0C8 100%);
+  border: 1px solid #000080;
+}
+
+.theme-preset.metro {
+  background: linear-gradient(135deg, #1B1B1B 0%, #2D2D2D 100%);
+  border: 1px solid #00BCF2;
+}
+
+/* =================== HOMEPAGE THEME INTEGRATION =================== */
+/* This code will be added to homepage.html to make it respect the themes */
+
+/* Minimalist Dark Theme Homepage */
+[data-theme="minimalist-dark"] .homepage-body {
+  background-color: #0f0f0f;
+  color: #f5f5f5;
+}
+
+[data-theme="minimalist-dark"] .homepage-logo {
+  color: #616FEE;
+}
+
+[data-theme="minimalist-dark"] .homepage-subtitle {
+  color: #a0a0a0;
+}
+
+[data-theme="minimalist-dark"] .homepage-bookmark {
+  background-color: #1e1e1e;
+  box-shadow: var(--shadow-sm);
+  border: none;
+}
+
+[data-theme="minimalist-dark"] .homepage-bookmark:hover {
+  background-color: #282828;
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Minimalist Light Theme Homepage */
+[data-theme="minimalist-light"] .homepage-body {
+  background-color: #ffffff;
+  color: #191919;
+}
+
+[data-theme="minimalist-light"] .homepage-logo {
+  color: #616FEE;
+}
+
+[data-theme="minimalist-light"] .homepage-subtitle {
+  color: #616161;
+}
+
+[data-theme="minimalist-light"] .homepage-bookmark {
+  background-color: #f5f5f5;
+  box-shadow: var(--shadow-sm);
+  border: none;
+}
+
+[data-theme="minimalist-light"] .homepage-bookmark:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Retro Combo Theme Homepage */
+[data-theme="retro-combo"] .homepage-body {
+  background-color: #ECE9D8;
+  color: #000000;
+  font-family: var(--retro-font);
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMTAwMDExAzAAQYABOKBKFk1ZXpAAAAAElFTkSuQmCC");
+}
+
+[data-theme="retro-combo"] .homepage-logo {
+  color: #0000FF;
+  text-decoration: underline;
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive;
+  text-shadow: 2px 2px 0 #FFFFFF;
+}
+
+[data-theme="retro-combo"] .homepage-subtitle {
+  color: #000080;
+  font-family: "Times New Roman", Times, serif;
+}
+
+[data-theme="retro-combo"] .homepage-bookmark {
+  background-color: #D4D0C8;
+  border-top: 1px solid var(--win9x-white-border);
+  border-left: 1px solid var(--win9x-white-border);
+  border-right: 1px solid var(--win9x-black-border);
+  border-bottom: 1px solid var(--win9x-black-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+[data-theme="retro-combo"] .homepage-bookmark:hover {
+  border-top: 1px solid var(--win9x-black-border);
+  border-left: 1px solid var(--win9x-black-border);
+  border-right: 1px solid var(--win9x-white-border);
+  border-bottom: 1px solid var(--win9x-white-border);
+  transform: none;
+}
+
+[data-theme="retro-combo"] .homepage-bookmark-title {
+  color: #0000FF;
+  text-decoration: underline;
+}
+
+/* Metro Theme Homepage */
+[data-theme="metro"] .homepage-body {
+  background-color: #1B1B1B;
+  color: #FFFFFF;
+}
+
+[data-theme="metro"] .homepage-logo {
+  color: #00BCF2;
+  font-weight: 300;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+[data-theme="metro"] .homepage-subtitle {
+  color: #BBBBBB;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+[data-theme="metro"] .homepage-bookmark {
+  background-color: #2D2D2D;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 3px solid var(--accent-primary);
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="metro"] .homepage-bookmark:hover {
+  background-color: #3a3a3a;
+  transform: none;
+  box-shadow: none;
+}
+
+[data-theme="metro"] .homepage-bookmark-icon {
+  margin: 0 auto 20px;
+}
+
+[data-theme="metro"] .homepage-bookmark-title {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+/* Homepage bookmarks grid for Metro theme */
+[data-theme="metro"] .homepage-bookmarks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  max-width: 1000px;
+}
+
+/* Special animation for Metro theme */
+@keyframes metroTileAnimation {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+[data-theme="metro"] .homepage-bookmark {
+  opacity: 0;
+  animation: metroTileAnimation 0.5s forwards;
+}
+
+[data-theme="metro"] .homepage-bookmark:nth-child(1) { animation-delay: 0.1s; }
+[data-theme="metro"] .homepage-bookmark:nth-child(2) { animation-delay: 0.2s; }
+[data-theme="metro"] .homepage-bookmark:nth-child(3) { animation-delay: 0.3s; }
+[data-theme="metro"] .homepage-bookmark:nth-child(4) { animation-delay: 0.4s; }
