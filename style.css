@@ -2919,3 +2919,124 @@ body[data-tab-size="3"] .tab-favicon {
 [data-theme="metro"] .homepage-bookmark:nth-child(2) { animation-delay: 0.2s; }
 [data-theme="metro"] .homepage-bookmark:nth-child(3) { animation-delay: 0.3s; }
 [data-theme="metro"] .homepage-bookmark:nth-child(4) { animation-delay: 0.4s; }
+
+/* =================== Homepage Bookmarks Integration =================== */
+/* These styles should be added to your style.css file to ensure bookmark styling 
+   matches the currently selected browser theme */
+
+/* Ensure bookmark grid adapts to theme colors */
+.bookmarks {
+  --bookmark-bg: var(--card-bg);
+  --bookmark-hover-bg: var(--hover-bg);
+  --bookmark-text: var(--text-color);
+  --bookmark-secondary-text: var(--text-secondary);
+}
+
+/* Bookmark elements */
+.bookmark {
+  background-color: var(--bookmark-bg);
+  color: var(--bookmark-text);
+  border-radius: var(--global-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.bookmark:hover {
+  background-color: var(--bookmark-hover-bg);
+  box-shadow: var(--shadow-md);
+}
+
+.bookmark-title {
+  color: var(--bookmark-text);
+}
+
+/* Drag and drop styles with theme colors */
+.bookmark.drag-over {
+  border: 2px dashed var(--accent-primary);
+  background-color: rgba(var(--accent-primary-rgb, 230, 0, 35), 0.1);
+}
+
+.bookmark.folder-drop-target {
+  border: 2px dashed var(--accent-tertiary);
+  background-color: rgba(var(--accent-tertiary-rgb, 255, 68, 119), 0.1);
+}
+
+/* Add bookmark button */
+.add-bookmark {
+  background-color: var(--button-bg);
+  border: 2px dashed var(--border-color);
+  color: var(--text-secondary);
+}
+
+.add-bookmark:hover {
+  border-color: var(--accent-primary);
+  background-color: var(--button-hover);
+}
+
+/* Folder children */
+.bookmark-folder-children {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  border-radius: calc(var(--global-radius) - 6px);
+}
+
+/* Add child bookmark button */
+.add-child-bookmark {
+  background-color: var(--accent-primary);
+}
+
+.add-child-bookmark:hover {
+  background-color: var(--accent-tertiary);
+}
+
+/* Remove bookmark button */
+.remove-bookmark:hover {
+  background-color: var(--close-hover, #ff4477);
+}
+
+/* Dialog styles for bookmark add/edit matching theme */
+.bookmark-dialog {
+  background-color: var(--card-bg);
+  border-radius: var(--global-radius);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+/* Handle specific theme overrides */
+[data-theme="light"] .bookmark-folder-children {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="win9x"] .bookmark,
+[data-theme="winxp"] .bookmark,
+[data-theme="early2000s"] .bookmark {
+  border-radius: 0;
+}
+
+[data-theme="win9x"] .bookmark {
+  border-top: 1px solid var(--win9x-white-border);
+  border-left: 1px solid var(--win9x-white-border);
+  border-right: 1px solid var(--win9x-black-border);
+  border-bottom: 1px solid var(--win9x-black-border);
+  box-shadow: none;
+}
+
+[data-theme="win9x"] .bookmark:hover {
+  transform: none;
+}
+
+[data-theme="winxp"] .bookmark {
+  background-image: var(--winxp-gradient);
+  border: 1px solid #7DA2CE;
+}
+
+[data-theme="metro"] .bookmark {
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+[data-theme="metro"] .bookmark-folder-children {
+  border-radius: 0;
+}

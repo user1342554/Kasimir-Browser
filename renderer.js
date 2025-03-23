@@ -285,6 +285,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       
+      webview.addEventListener('dom-ready', () => {
+        console.log(`Webview for tab ${tabId} is dom-ready.`);
+        updateNavButtons();
+      });
+      
       webview.addEventListener('did-navigate', (e) => {
         console.log(`Tab ${tabId} navigated to ${e.url}`);
         
@@ -543,191 +548,160 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Add this to your renderer.js file or create a separate script file and include it in your HTML
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Get references to the settings button and panel
-  const settingsButton = document.getElementById('settings-button');
-  const settingsPanel = document.getElementById('settings-panel');
-  
-  // Check if elements exist
-  if (settingsButton && settingsPanel) {
-    // Remove any existing event listeners (to prevent duplicates)
-    const newSettingsButton = settingsButton.cloneNode(true);
-    settingsButton.parentNode.replaceChild(newSettingsButton, settingsButton);
+  // ------------------ Additional UI Setup ------------------
+  // Settings and Extensions panels, keyboard shortcuts, etc.
+  document.addEventListener('DOMContentLoaded', () => {
+    const settingsButton = document.getElementById('settings-button');
+    const settingsPanel = document.getElementById('settings-panel');
     
-    // Add event listener to toggle settings panel
-    newSettingsButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      console.log('Settings button clicked'); // Debug log
+    if (settingsButton && settingsPanel) {
+      const newSettingsButton = settingsButton.cloneNode(true);
+      settingsButton.parentNode.replaceChild(newSettingsButton, settingsButton);
       
-      // Toggle active class on settings panel
-      settingsPanel.classList.toggle('active');
-      
-      // Close extensions panel if open
-      const extensionsPanel = document.getElementById('extensions-panel');
-      if (extensionsPanel && extensionsPanel.classList.contains('active')) {
-        extensionsPanel.classList.remove('active');
-      }
-      
-      // Clicked outside of settings panel should close it
-      if (settingsPanel.classList.contains('active')) {
-        document.addEventListener('click', closeSettingsPanelOutside);
-      } else {
-        document.removeEventListener('click', closeSettingsPanelOutside);
-      }
-    });
-    
-    // Close settings panel when clicked outside
-    function closeSettingsPanelOutside(e) {
-      if (!settingsPanel.contains(e.target) && e.target !== newSettingsButton) {
-        settingsPanel.classList.remove('active');
-        document.removeEventListener('click', closeSettingsPanelOutside);
-      }
-    }
-    
-    // Also fix settings tab buttons if they exist
-    const settingsTabButtons = document.querySelectorAll('.settings-tab-button');
-    const settingsTabContents = document.querySelectorAll('.settings-tab-content');
-    
-    settingsTabButtons.forEach(button => {
-      // Clone to remove any existing event listeners
-      const newButton = button.cloneNode(true);
-      button.parentNode.replaceChild(newButton, button);
-      
-      // Add event listener
-      newButton.addEventListener('click', () => {
-        // Get tab to show
-        const tabToShow = newButton.dataset.tab;
-        
-        // Update active state on buttons
-        settingsTabButtons.forEach(btn => {
-          btn.classList.toggle('active', btn === newButton);
-        });
-        
-        // Update active state on tab contents
-        settingsTabContents.forEach(content => {
-          const isActive = content.id === `${tabToShow}-tab`;
-          content.classList.toggle('active', isActive);
-        });
-      });
-    });
-    
-    // Fix extensions button too
-    const extensionsButton = document.getElementById('extensions-button');
-    const extensionsPanel = document.getElementById('extensions-panel');
-    
-    if (extensionsButton && extensionsPanel) {
-      // Remove any existing event listeners
-      const newExtensionsButton = extensionsButton.cloneNode(true);
-      extensionsButton.parentNode.replaceChild(newExtensionsButton, extensionsButton);
-      
-      // Add event listener
-      newExtensionsButton.addEventListener('click', (e) => {
+      newSettingsButton.addEventListener('click', (e) => {
         e.preventDefault();
+        console.log('Settings button clicked');
         
-        // Toggle active class on extensions panel
-        extensionsPanel.classList.toggle('active');
+        settingsPanel.classList.toggle('active');
         
-        // Close settings panel if open
-        if (settingsPanel.classList.contains('active')) {
-          settingsPanel.classList.remove('active');
+        const extensionsPanel = document.getElementById('extensions-panel');
+        if (extensionsPanel && extensionsPanel.classList.contains('active')) {
+          extensionsPanel.classList.remove('active');
         }
         
-        // Clicked outside of extensions panel should close it
-        if (extensionsPanel.classList.contains('active')) {
-          document.addEventListener('click', closeExtensionsPanelOutside);
+        if (settingsPanel.classList.contains('active')) {
+          document.addEventListener('click', closeSettingsPanelOutside);
         } else {
-          document.removeEventListener('click', closeExtensionsPanelOutside);
+          document.removeEventListener('click', closeSettingsPanelOutside);
         }
       });
       
-      // Close extensions panel when clicked outside
-      function closeExtensionsPanelOutside(e) {
-        if (!extensionsPanel.contains(e.target) && e.target !== newExtensionsButton) {
-          extensionsPanel.classList.remove('active');
-          document.removeEventListener('click', closeExtensionsPanelOutside);
+      function closeSettingsPanelOutside(e) {
+        if (!settingsPanel.contains(e.target) && e.target !== newSettingsButton) {
+          settingsPanel.classList.remove('active');
+          document.removeEventListener('click', closeSettingsPanelOutside);
         }
       }
-    }
-  } else {
-    console.error('Settings button or panel not found');
-  }
-  
-  // Ensure the settings panel has the correct CSS
-  const styleCheck = document.createElement('style');
-  styleCheck.textContent = `
-    #settings-panel {
-      position: absolute;
-      top: calc(var(--toolbar-height) + 8px);
-      right: 16px;
-      width: 420px;
-      background: var(--card-bg);
-      border-radius: var(--global-radius);
-      box-shadow: var(--shadow-lg);
-      z-index: 200;
-      padding: 24px;
-      transform: translateY(-20px);
-      opacity: 0;
-      pointer-events: none;
-      overflow-y: auto;
-      max-height: calc(100vh - var(--toolbar-height) - 32px);
-      border: 1px solid var(--border-color);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    #settings-panel.active {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
+      
+      const settingsTabButtons = document.querySelectorAll('.settings-tab-button');
+      const settingsTabContents = document.querySelectorAll('.settings-tab-content');
+      
+      settingsTabButtons.forEach(button => {
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+        
+        newButton.addEventListener('click', () => {
+          const tabToShow = newButton.dataset.tab;
+          
+          settingsTabButtons.forEach(btn => {
+            btn.classList.toggle('active', btn === newButton);
+          });
+          
+          settingsTabContents.forEach(content => {
+            const isActive = content.id === `${tabToShow}-tab`;
+            content.classList.toggle('active', isActive);
+          });
+        });
+      });
+      
+      const extensionsButton = document.getElementById('extensions-button');
+      const extensionsPanel = document.getElementById('extensions-panel');
+      
+      if (extensionsButton && extensionsPanel) {
+        const newExtensionsButton = extensionsButton.cloneNode(true);
+        extensionsButton.parentNode.replaceChild(newExtensionsButton, extensionsButton);
+        
+        newExtensionsButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          extensionsPanel.classList.toggle('active');
+          
+          if (settingsPanel.classList.contains('active')) {
+            settingsPanel.classList.remove('active');
+          }
+          
+          if (extensionsPanel.classList.contains('active')) {
+            document.addEventListener('click', closeExtensionsPanelOutside);
+          } else {
+            document.removeEventListener('click', closeExtensionsPanelOutside);
+          }
+        });
+        
+        function closeExtensionsPanelOutside(e) {
+          if (!extensionsPanel.contains(e.target) && e.target !== newExtensionsButton) {
+            extensionsPanel.classList.remove('active');
+            document.removeEventListener('click', closeExtensionsPanelOutside);
+          }
+        }
+      }
+    } else {
+      console.error('Settings button or panel not found');
     }
     
-    /* Make sure settings button has proper styling */
-    #settings-button {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--button-bg);
-      border: none;
-      cursor: pointer;
-      border-radius: var(--button-radius);
-      color: var(--text-secondary);
-      margin-left: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-  `;
-  document.head.appendChild(styleCheck);
-  
-  // Debug any missing elements
-  console.log('Settings Button Element:', settingsButton);
-  console.log('Settings Panel Element:', settingsPanel);
-  
-  // Add a global keyboard shortcut (Ctrl+,) for opening settings
-  document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === ',') {
-      e.preventDefault();
-      if (settingsPanel) {
-        settingsPanel.classList.toggle('active');
+    const styleCheck = document.createElement('style');
+    styleCheck.textContent = `
+      #settings-panel {
+        position: absolute;
+        top: calc(var(--toolbar-height) + 8px);
+        right: 16px;
+        width: 420px;
+        background: var(--card-bg);
+        border-radius: var(--global-radius);
+        box-shadow: var(--shadow-lg);
+        z-index: 200;
+        padding: 24px;
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        overflow-y: auto;
+        max-height: calc(100vh - var(--toolbar-height) - 32px);
+        border: 1px solid var(--border-color);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
-    }
+      #settings-panel.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #settings-button {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--button-bg);
+        border: none;
+        cursor: pointer;
+        border-radius: var(--button-radius);
+        color: var(--text-secondary);
+        margin-left: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+    `;
+    document.head.appendChild(styleCheck);
+    
+    console.log('Settings Button Element:', settingsButton);
+    console.log('Settings Panel Element:', settingsPanel);
+    
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === ',') {
+        e.preventDefault();
+        if (settingsPanel) {
+          settingsPanel.classList.toggle('active');
+        }
+      }
+    });
   });
-});
-
 
   // ------------------ Event Listeners ------------------
   
-  // New tab button
   if (newTabButton) {
     newTabButton.addEventListener('click', () => {
       createNewTab();
     });
   }
   
-  // URL form
   if (urlForm) {
     urlForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -738,11 +712,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Navigation buttons
   if (backButton) {
     backButton.addEventListener('click', () => {
       const webview = document.getElementById(`webview-${activeTabId}`);
-      if (webview && webview.canGoBack()) {
+      if (webview && webview.canGoBack && webview.canGoBack()) {
         webview.goBack();
       }
     });
@@ -751,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (forwardButton) {
     forwardButton.addEventListener('click', () => {
       const webview = document.getElementById(`webview-${activeTabId}`);
-      if (webview && webview.canGoForward()) {
+      if (webview && webview.canGoForward && webview.canGoForward()) {
         webview.goForward();
       }
     });
@@ -766,7 +739,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Window controls
   if (minimizeButton) {
     minimizeButton.addEventListener('click', () => {
       if (window.electronAPI) {
@@ -791,7 +763,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Initialize browser
   if (startupAnimation) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -813,9 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeBrowser();
   }
   
-  // Keyboard shortcuts
   window.addEventListener('keydown', (e) => {
-    // Focus URL input (Ctrl+L)
     if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
       if (urlInput) {
         urlInput.focus();
@@ -825,27 +794,23 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    // Skip other shortcuts if focused on an input
     const isInputFocused = document.activeElement.tagName === 'INPUT' || 
                            document.activeElement.tagName === 'TEXTAREA' || 
                            document.activeElement.isContentEditable;
     if (isInputFocused && e.key !== 'Escape') return;
     
-    // New tab (Ctrl+T)
     if ((e.ctrlKey || e.metaKey) && e.key === 't') {
       createNewTab();
       e.preventDefault();
       return;
     }
     
-    // Close tab (Ctrl+W)
     if ((e.ctrlKey || e.metaKey) && e.key === 'w') {
       closeTab(activeTabId);
       e.preventDefault();
       return;
     }
     
-    // Reload page (F5 or Ctrl+R)
     if (e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
       const webview = document.getElementById(`webview-${activeTabId}`);
       if (webview) {
@@ -855,7 +820,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    // Next tab (Ctrl+Tab)
     if ((e.ctrlKey || e.metaKey) && e.key === 'Tab' && !e.shiftKey) {
       const currentIndex = tabs.findIndex(t => t.id === activeTabId);
       const nextIndex = (currentIndex + 1) % tabs.length;
@@ -864,7 +828,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    // Previous tab (Ctrl+Shift+Tab)
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'Tab') {
       const currentIndex = tabs.findIndex(t => t.id === activeTabId);
       const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;

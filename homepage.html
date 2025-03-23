@@ -1,94 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kasimir Start</title>
   <style>
     :root {
       --bg-color: #121212;
+      --card-bg: #2a2a2a;
+      --hover-bg: #3a3a3a;
       --accent-primary: #e60023;
       --accent-secondary: #4285f4;
-      --accent-tertiary: #fbbc05;
-      --accent-quaternary: #34a853;
       --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
     }
-
+    [data-theme="light"] {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --hover-bg: #f1f3f5;
+      --text-primary: #212529;
+      --text-secondary: #6c757d;
+    }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
-
     body {
       background-color: var(--bg-color);
       color: var(--text-primary);
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: hidden;
     }
-
-    /* Welcome area styles */
-    .welcome-area {
-      margin-top: 60px;
+    .header {
+      margin-top: 40px;
       text-align: center;
       margin-bottom: 40px;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-      animation-delay: 0.5s;
+      animation: fadeIn 0.8s ease forwards;
     }
-    
     .logo {
       font-size: 48px;
       font-weight: bold;
       color: var(--accent-primary);
+      margin-bottom: 10px;
     }
-
     .subtitle {
       font-size: 18px;
-      color: #b0b0b0;
-      margin-top: 10px;
+      color: var(--text-secondary);
     }
-
-    /* Book    marks grid */
-    .bookmarks {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 20px;
-      max-width: 800px;
-      width: 90%;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-      animation-delay: 0.8s;
-    }
-
-    .bookmark {
-      background-color: #2a2a2a;
-      border-radius: 16px;
+    .bookmarks-container {
+      width: 100%;
+      max-width: 1000px;
       padding: 20px;
-      text-align: center;
+      margin: 0 auto;
+      animation: fadeIn 0.8s ease forwards;
+      animation-delay: 0.4s;
+      opacity: 0;
+    }
+    #bookmarks-grid {
+      position: relative;
+      margin: 0 auto;
+    }
+    .bookmark-item {
+      width: 130px;
+      height: 130px;
+      position: absolute;
+      z-index: 1;
+    }
+    .bookmark-item.muuri-item-dragging {
+      z-index: 3;
+    }
+    .bookmark-item.muuri-item-releasing {
+      z-index: 2;
+    }
+    .bookmark-content {
+      width: 120px;
+      height: 120px;
+      margin: 5px;
+      border-radius: 15px;
+      background-color: var(--card-bg);
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      overflow: hidden;
+      position: relative;
     }
-
-    .bookmark:hover {
+    .bookmark-content:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      box-shadow: var(--shadow-md);
+      background-color: var(--hover-bg);
     }
-
     .bookmark-icon {
       width: 48px;
       height: 48px;
-      margin: 0 auto 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-
+    .bookmark-icon img {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+    .default-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background-color: var(--accent-primary);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
     .bookmark-title {
-      font-size: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
-
+    .bookmark-options {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .bookmark-content:hover .bookmark-options {
+      opacity: 1;
+    }
+    .delete-bookmark {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: rgba(0,0,0,0.3);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+    }
+    .delete-bookmark:hover {
+      background-color: #ff4d4d;
+    }
+    /* Updated Add Bookmark Button Styles */
+    #open-bookmark-form-btn {
+      width: 120px;
+      height: 120px;
+      margin: 5px;
+      border-radius: 15px;
+      background-color: transparent;
+      border: 2px dashed white;  /* Use white for border */
+      opacity: 0.9;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;  /* Text color white */
+      transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    #open-bookmark-form-btn:hover {
+      opacity: 1;
+      border-color: var(--accent-primary);
+      transform: translateY(-5px);
+    }
+    .add-icon {
+      width: 40px;  /* Slightly larger icon for better visibility */
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-primary);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    /* End Updated Add Bookmark Button Styles */
+    #form-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+    #add-bookmark-form {
+      width: 100%;
+      max-width: 400px;
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: var(--shadow-md);
+    }
+    .form-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .form-group input {
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+    }
+    .form-group input:focus {
+      outline: 2px solid var(--accent-primary);
+    }
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .form-button {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #cancel-bookmark-btn {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+    }
+    #save-bookmark-btn {
+      background-color: var(--accent-primary);
+      color: white;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -96,51 +274,261 @@
   </style>
 </head>
 <body>
-  <div class="welcome-area">
+  <div class="header">
     <div class="logo">Kasimir</div>
     <div class="subtitle">Welcome to your browser</div>
   </div>
   
-  <div class="bookmarks">
-    <div class="bookmark" onclick="window.location.href='https://www.google.com'">
-      <div class="bookmark-icon">
-        <svg viewBox="0 0 24 24" width="48" height="48">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-          <path fill="none" d="M1 1h22v22H1z"/>
-        </svg>
-      </div>
-      <div class="bookmark-title">Google</div>
-    </div>
-    
-    <div class="bookmark" onclick="window.location.href='https://www.youtube.com'">
-      <div class="bookmark-icon">
-        <svg viewBox="0 0 24 24" width="48" height="48">
-          <path fill="#FF0000" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.9 3.6 12 3.6 12 3.6s-7.9 0-9.5.5c-1 .3-1.7 1.1-2 2.1C0 7.9 0 12 0 12s0 4.1.5 5.8c.3 1 1 1.8 2 2.1 1.6.5 9.5.5 9.5.5s7.9 0 9.5-.5c1-.3 1.7-1.1 2-2.1.5-1.7.5-5.8.5-5.8s0-4.1-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/>
-        </svg>
-      </div>
-      <div class="bookmark-title">YouTube</div>
-    </div>
-    
-    <div class="bookmark" onclick="window.location.href='https://www.github.com'">
-      <div class="bookmark-icon">
-        <svg viewBox="0 0 24 24" width="48" height="48">
-          <path fill="#FFFFFF" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.2-.7 0-.7 0-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.9.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/>
-        </svg>
-      </div>
-      <div class="bookmark-title">GitHub</div>
-    </div>
-    
-    <div class="bookmark" onclick="window.location.href='https://www.wikipedia.org'">
-      <div class="bookmark-icon">
-        <svg viewBox="0 0 24 24" width="48" height="48">
-          <path fill="#FFFFFF" d="M12.09 13.119c-.936 1.932-2.217 4.548-2.853 5.728-.616 1.074-1.127.931-1.532.029-1.406-3.321-4.293-9.144-5.651-12.409-.251-.601-.441-.987-.619-1.139-.181-.15-.554-.24-1.122-.271C.103 5.033 0 4.982 0 4.898v-.455l.052-.045c.924-.005 5.401 0 5.401 0l.051.045v.434c0 .084-.103.135-.208.157-.109.021-.377.077-.46.133-.092.065-.127.183-.072.365.797 2.417 3.674 9.223 4.47 11.52.21-.398.345-.645.456-.828.331-.565 3.466-7.589 4.886-11.048.097-.221.073-.365-.058-.428-.085-.04-.19-.061-.328-.071-.218-.015-.324-.066-.324-.151v-.468l.06-.045h4.292l.113.037v.451c0 .072-.057.134-.21.161-.478.077-.8.196-.976.349-.226.193-.154.383-.057.628.248.6.922 2.017 1.786 3.902 1.304 2.849 2.936 6.11 3.196 6.731.148-.183 2.137-4.597 3.89-9.258.197-.548.182-.834.54-1.076.238-.159.039-.324.039-.43v-.36l.055-.052h4.056l.051.052v.444c0 .123-.18.202-.537.227-.268.018-.449.048-.576.092-.127.045-.194.183-.218.426-.23 2.432-.995 8.092-1.356 11.12-.11.925-.522 1.314-1.106 1.314-.94 0-1.961-1.314-3.243-3.448-.155-.268-1.485-2.637-3.001-5.388-.857-1.561-1.438-2.568-1.672-2.959m0 0"/>
-        </svg>
-      </div>
-      <div class="bookmark-title">Wikipedia</div>
+  <div class="bookmarks-container">
+    <div id="bookmarks-grid">
+      <!-- Bookmark items will be inserted here -->
     </div>
   </div>
+  
+  <!-- Updated Add Bookmark Button (we attach pointer events in JS) -->
+  <button id="open-bookmark-form-btn">
+    <div class="add-icon">+</div>
+    <div>Add Bookmark</div>
+  </button>
+  
+  <div id="form-overlay">
+    <form id="add-bookmark-form">
+      <div class="form-title">Add Bookmark</div>
+      <div class="form-group">
+        <label for="bookmark-title">Title</label>
+        <input type="text" id="bookmark-title" placeholder="Example" required />
+      </div>
+      <div class="form-group">
+        <label for="bookmark-url">URL</label>
+        <input type="url" id="bookmark-url" placeholder="https://example.com" required />
+      </div>
+      <div class="form-buttons">
+        <button type="button" class="form-button" id="cancel-bookmark-btn">Cancel</button>
+        <button type="submit" class="form-button" id="save-bookmark-btn">Save</button>
+      </div>
+    </form>
+  </div>
+  
+  <!-- Include Muuri library -->
+  <script src="https://cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
+  <script>
+    let bookmarks = [];
+    let grid = null;
+    const clickThreshold = 15; // Pixels threshold for click detection
+    
+    const gridElem = document.getElementById('bookmarks-grid');
+    const openFormBtn = document.getElementById('open-bookmark-form-btn');
+    const formOverlay = document.getElementById('form-overlay');
+    const addForm = document.getElementById('add-bookmark-form');
+    const cancelBtn = document.getElementById('cancel-bookmark-btn');
+    const titleInput = document.getElementById('bookmark-title');
+    const urlInput = document.getElementById('bookmark-url');
+    
+    // Add pointer event handling to the Add Bookmark button (like individual bookmarks)
+    let addBtnStartX, addBtnStartY;
+    openFormBtn.addEventListener('pointerdown', function(e) {
+      addBtnStartX = e.clientX;
+      addBtnStartY = e.clientY;
+    });
+    openFormBtn.addEventListener('pointerup', function(e) {
+      const dx = e.clientX - addBtnStartX;
+      const dy = e.clientY - addBtnStartY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < clickThreshold) {
+        showAddBookmarkForm();
+      }
+    });
+    
+    // Load bookmarks from localStorage
+    function loadBookmarks() {
+      const stored = localStorage.getItem('bookmarks');
+      if (stored) {
+        try {
+          bookmarks = JSON.parse(stored);
+        } catch(e) {
+          console.error('Failed to load bookmarks:', e);
+          createDefaultBookmarks();
+        }
+      } else {
+        createDefaultBookmarks();
+      }
+    }
+    
+    // Save bookmarks to localStorage
+    function saveBookmarks() {
+      try {
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      } catch(e) {
+        console.error('Failed to save bookmarks:', e);
+      }
+    }
+    
+    // Create default bookmarks if none exist
+    function createDefaultBookmarks() {
+      bookmarks = [
+        { id: 'bm-' + Date.now() + '-' + Math.floor(Math.random()*1000), title: 'Google', url: 'https://www.google.com' },
+        { id: 'bm-' + Date.now() + '-' + Math.floor(Math.random()*1000) + '-yt', title: 'YouTube', url: 'https://www.youtube.com' },
+        { id: 'bm-' + Date.now() + '-' + Math.floor(Math.random()*1000) + '-gh', title: 'GitHub', url: 'https://github.com' }
+      ];
+      saveBookmarks();
+    }
+    
+    // Create a bookmark element with pointer events to differentiate click vs. drag
+    function createBookmarkElement(bookmark) {
+      const item = document.createElement('div');
+      item.classList.add('bookmark-item');
+      item.setAttribute('data-id', bookmark.id);
+      
+      const content = document.createElement('div');
+      content.classList.add('bookmark-content');
+      
+      // Icon
+      const iconDiv = document.createElement('div');
+      iconDiv.classList.add('bookmark-icon');
+      const img = document.createElement('img');
+      const faviconUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(bookmark.url)}&sz=64`;
+      img.src = faviconUrl;
+      img.alt = bookmark.title;
+      img.onerror = function() {
+        iconDiv.innerHTML = `<div class="default-icon">${bookmark.title.charAt(0)}</div>`;
+      };
+      iconDiv.appendChild(img);
+      
+      // Title
+      const titleDiv = document.createElement('div');
+      titleDiv.classList.add('bookmark-title');
+      titleDiv.textContent = bookmark.title;
+      
+      // Options container with delete button
+      const optionsDiv = document.createElement('div');
+      optionsDiv.classList.add('bookmark-options');
+      const deleteBtn = document.createElement('button');
+      deleteBtn.classList.add('delete-bookmark');
+      deleteBtn.textContent = '×';
+      // Prevent pointer events on delete from bubbling up
+      deleteBtn.addEventListener('pointerdown', e => e.stopPropagation());
+      deleteBtn.addEventListener('pointerup', e => e.stopPropagation());
+      deleteBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // Update bookmarks array and reinitialize the grid
+        bookmarks = bookmarks.filter(b => b.id !== bookmark.id);
+        saveBookmarks();
+        initializeGrid();
+      });
+      optionsDiv.appendChild(deleteBtn);
+      
+      content.appendChild(iconDiv);
+      content.appendChild(titleDiv);
+      content.appendChild(optionsDiv);
+      
+      // Use pointer events to differentiate a click from a drag.
+      let startX, startY;
+      content.addEventListener('pointerdown', function(e) {
+        startX = e.clientX;
+        startY = e.clientY;
+      });
+      content.addEventListener('pointerup', function(e) {
+        if (e.target.closest('.delete-bookmark')) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < clickThreshold) {
+          window.open(bookmark.url, '_self');
+        }
+      });
+      
+      item.appendChild(content);
+      return item;
+    }
+    
+    // Initialize the Muuri grid and render bookmarks by rebuilding it from the bookmarks array
+    function initializeGrid() {
+      // Clear the grid element completely and rebuild it from the bookmarks array
+      gridElem.innerHTML = '';
+      bookmarks.forEach(bookmark => {
+        const item = createBookmarkElement(bookmark);
+        gridElem.appendChild(item);
+      });
+      
+      if (grid) {
+        grid.destroy(); // Destroy previous grid instance to ensure a fresh rebuild
+      }
+      
+      // Reinitialize the grid with instant removal options
+      grid = new Muuri('#bookmarks-grid', {
+        dragEnabled: true,
+        layoutOnInit: true,
+        dragReleaseDuration: 0,
+        dragSortHeuristics: { minDragDistance: 10 },
+        layout: {
+          fillGaps: false,
+          horizontal: false,
+          alignRight: false,
+          alignBottom: false,
+          rounding: false
+        }
+      });
+      
+      // Add the "Add Bookmark" tile
+      const addButtonItem = document.createElement('div');
+      addButtonItem.classList.add('bookmark-item', 'add-button-item');
+      addButtonItem.appendChild(openFormBtn);
+      gridElem.appendChild(addButtonItem);
+      grid.add(addButtonItem);
+    }
+    
+    // Add a new bookmark and update grid immediately
+    function addBookmark(title, url) {
+      const newBookmark = { id: 'bm-' + Date.now() + '-' + Math.floor(Math.random()*1000), title, url };
+      bookmarks.push(newBookmark);
+      saveBookmarks();
+      initializeGrid();
+    }
+    
+    // Show/hide the add bookmark form
+    function showAddBookmarkForm() {
+      formOverlay.style.display = 'flex';
+      titleInput.value = '';
+      urlInput.value = '';
+      titleInput.focus();
+    }
+    
+    function hideAddBookmarkForm() {
+      formOverlay.style.display = 'none';
+    }
+    
+    openFormBtn.addEventListener('click', showAddBookmarkForm);
+    cancelBtn.addEventListener('click', hideAddBookmarkForm);
+    addForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const title = titleInput.value.trim();
+      let url = urlInput.value.trim();
+      if (!url.match(/^https?:\/\//)) {
+        url = 'https://' + url;
+      }
+      addBookmark(title, url);
+      hideAddBookmarkForm();
+    });
+    formOverlay.addEventListener('click', function(e) {
+      if (e.target === formOverlay) {
+        hideAddBookmarkForm();
+      }
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      loadBookmarks();
+      initializeGrid();
+      try {
+        if (window !== window.parent) {
+          const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
+          if (parentTheme) {
+            document.documentElement.setAttribute('data-theme', parentTheme);
+          }
+        }
+      } catch(e) {
+        console.log('Could not access parent window theme');
+      }
+    });
+  </script>
 </body>
-</html>    
+</html>
