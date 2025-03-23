@@ -170,7 +170,7 @@
       margin: 5px;
       border-radius: 15px;
       background-color: transparent;
-      border: 2px dashed white;  /* Use white for border */
+      border: 2px dashed white;
       opacity: 0.9;
       cursor: pointer;
       display: flex;
@@ -178,7 +178,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: white;  /* Text color white */
+      color: white;
       transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
     }
     #open-bookmark-form-btn:hover {
@@ -187,7 +187,7 @@
       transform: translateY(-5px);
     }
     .add-icon {
-      width: 40px;  /* Slightly larger icon for better visibility */
+      width: 40px;
       height: 40px;
       border-radius: 50%;
       background-color: var(--accent-primary);
@@ -527,6 +527,50 @@
         }
       } catch(e) {
         console.log('Could not access parent window theme');
+      }
+    });
+  </script>
+
+  <!-- Added keyboard shortcut forwarding script -->
+  <script>
+    // This script captures keydown events on the homepage and sends messages to the parent window
+    window.addEventListener('keydown', function(e) {
+      // Do not capture shortcuts if typing in an input, textarea, or contentEditable element
+      if (document.activeElement.tagName === 'INPUT' ||
+          document.activeElement.tagName === 'TEXTAREA' ||
+          document.activeElement.isContentEditable) {
+        return;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'new-tab' }, '*');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'w') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'close-tab' }, '*');
+      } else if (e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'reload-tab' }, '*');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'focus-url' }, '*');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'find' }, '*');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === '+') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'zoom-in' }, '*');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === '-') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'zoom-out' }, '*');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === '0') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'zoom-reset' }, '*');
+      } else if (e.altKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'back' }, '*');
+      } else if (e.altKey && e.key === 'ArrowRight') {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'forward' }, '*');
       }
     });
   </script>
