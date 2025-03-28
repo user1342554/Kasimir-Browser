@@ -41,367 +41,6 @@
   --anim-slow: 0.4s;
 }
 
-/* Light Mode Theme */
-[data-theme="light"] {
-  --bg-color: #f8f9fa;
-  --sidebar-bg: #ffffff;
-  --toolbar-bg: #ffffff;
-  --card-bg: #ffffff;
-  --hover-bg: #f1f3f5;
-  --active-bg: #e9ecef;
-  --text-color: #212529;
-  --text-secondary: #6c757d;
-  --border-color: #dee2e6;
-  
-  --shadow-sm: 0 2px 6px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
-}
-
-/* Ocean Theme */
-[data-theme="ocean"] {
-  --bg-color: #0a192f;
-  --sidebar-bg: #112240;
-  --toolbar-bg: #112240;
-  --card-bg: #1d3557;
-  --hover-bg: #233554;
-  --active-bg: #293e5c;
-  --text-color: #e6f1ff;
-  --text-secondary: #a8b2d1;
-  --border-color: #233554;
-  
-  --accent-primary: #64ffda;
-  --accent-secondary: #00b4d8;
-  --accent-tertiary: #2ecc71;
-}
-
-/* Forest Theme */
-[data-theme="forest"] {
-  --bg-color: #1e2b20;
-  --sidebar-bg: #2c3c2e;
-  --toolbar-bg: #2c3c2e;
-  --card-bg: #314233;
-  --hover-bg: #3b4f3d;
-  --active-bg: #465c48;
-  --text-color: #f0f7f1;
-  --text-secondary: #b8c5b9;
-  --border-color: #3b4f3d;
-  
-  --accent-primary: #6bcb77;
-  --accent-secondary: #4a934f;
-  --accent-tertiary: #27ae60;
-}
-
-/* Sunset Theme */
-[data-theme="sunset"] {
-  --bg-color: #2d1b2a;
-  --sidebar-bg: #402537;
-  --toolbar-bg: #402537;
-  --card-bg: #522e48;
-  --hover-bg: #633754;
-  --active-bg: #7a4269;
-  --text-color: #fff6ea;
-  --text-secondary: #dbc0ad;
-  --border-color: #633754;
-  
-  --accent-primary: #ff9d76;
-  --accent-secondary: #ff7b54;
-  --accent-tertiary: #f39c12;
-}
-
-/* Candy Theme */
-[data-theme="candy"] {
-  --bg-color: #2b0030;
-  --sidebar-bg: #3c0045;
-  --toolbar-bg: #3c0045;
-  --card-bg: #4d005a;
-  --hover-bg: #5f006e;
-  --active-bg: #710084;
-  --text-color: #ffeeff;
-  --text-secondary: #d9aedb;
-  --border-color: #5f006e;
-  
-  --accent-primary: #ff6bcb;
-  --accent-secondary: #ff36ab;
-  --accent-tertiary: #ff6bcb;
-}
-
-/* Neon Theme */
-[data-theme="neon"] {
-  --bg-color: #0a0a0a;
-  --sidebar-bg: #141414;
-  --toolbar-bg: #141414;
-  --card-bg: #1a1a1a;
-  --hover-bg: #232323;
-  --active-bg: #2c2c2c;
-  --text-color: #ffffff;
-  --text-secondary: #a0a0a0;
-  --border-color: #232323;
-  
-  --accent-primary: #00ff9d;
-  --accent-secondary: #00cc7e;
-  --accent-tertiary: #33ffb1;
-  
-  --shadow-sm: 0 2px 10px rgba(0, 255, 157, 0.2);
-  --shadow-md: 0 4px 20px rgba(0, 255, 157, 0.25);
-  --shadow-lg: 0 8px 30px rgba(0, 255, 157, 0.3);
-}
-
-/* Nord Theme */
-[data-theme="nord"] {
-  --bg-color: #2e3440;
-  --sidebar-bg: #3b4252;
-  --toolbar-bg: #3b4252;
-  --card-bg: #434c5e;
-  --hover-bg: #4c566a;
-  --active-bg: #5e81ac;
-  --text-color: #eceff4;
-  --text-secondary: #d8dee9;
-  --border-color: #4c566a;
-  
-  --accent-primary: #88c0d0;
-  --accent-secondary: #81a1c1;
-  --accent-tertiary: #8fbcbb;
-}
-
-/* Gruvbox Theme */
-[data-theme="gruvbox"] {
-  --bg-color: #282828;
-  --sidebar-bg: #3c3836;
-  --toolbar-bg: #3c3836;
-  --card-bg: #504945;
-  --hover-bg: #665c54;
-  --active-bg: #7c6f64;
-  --text-color: #ebdbb2;
-  --text-secondary: #bdae93;
-  --border-color: #504945;
-  
-  --accent-primary: #fb4934;
-  --accent-secondary: #fe8019;
-  --accent-tertiary: #fabd2f;
-}
-
-/* =================== New Theme Templates =================== */
-
-/* Early 2000s Internet Style */
-[data-theme="early2000s"] {
-  --bg-color: #ffffff;
-  --sidebar-bg: #efefef;
-  --toolbar-bg: #d3d3d3;
-  --card-bg: #f0f0f0;
-  --hover-bg: #e0e0e0;
-  --active-bg: #c0c0c0;
-  --text-color: #000080;
-  --text-secondary: #000000;
-  --border-color: #a9a9a9;
-  
-  --accent-primary: #0000ff;
-  --accent-secondary: #ff00ff;
-  --accent-tertiary: #ff0000;
-  
-  --shadow-sm: 0 1px 1px rgba(0,0,0,0.3);
-  --shadow-md: 0 2px 2px rgba(0,0,0,0.3);
-  --shadow-lg: 0 3px 3px rgba(0,0,0,0.3);
-  
-  /* Special Retro Styling */
-  --retro-font: "Times New Roman", Times, serif;
-}
-
-/* Windows XP Theme */
-[data-theme="winxp"] {
-  --bg-color: #ECE9D8;
-  --sidebar-bg: #ECE9D8;
-  --toolbar-bg: #2A52BE;
-  --card-bg: #FFFFFF;
-  --hover-bg: #FFE7A2;
-  --active-bg: #FFC83C;
-  --text-color: #000000;
-  --text-secondary: #444444;
-  --border-color: #B5B3A9;
-  
-  --accent-primary: #346DC2;
-  --accent-secondary: #4E8DF2;
-  --accent-tertiary: #59B549;
-  
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
-  --shadow-md: 0 2px 4px rgba(0,0,0,0.2);
-  --shadow-lg: 0 3px 6px rgba(0,0,0,0.2);
-  
-  /* Button gradient */
-  --winxp-gradient: linear-gradient(to bottom, #E9FCF9 0%, #CEEEFA 25%, #A5DFEF 50%, #8ED4E7 51%, #D3F4FB 100%);
-}
-
-/* Windows 95/98 Theme */
-[data-theme="win9x"] {
-  --bg-color: #C0C0C0;
-  --sidebar-bg: #C0C0C0;
-  --toolbar-bg: #C0C0C0;
-  --card-bg: #C0C0C0;
-  --hover-bg: #DFDFDF;
-  --active-bg: #AAAAAA;
-  --text-color: #000000;
-  --text-secondary: #444444;
-  --border-color: #808080;
-  
-  --accent-primary: #000080;
-  --accent-secondary: #0000AA;
-  --accent-tertiary: #008080;
-  
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-  
-  /* Win9x 3D border effect */
-  --win9x-white-border: #FFFFFF;
-  --win9x-light-border: #DFDFDF;
-  --win9x-dark-border: #808080;
-  --win9x-black-border: #000000;
-}
-
-/* =================== Theme-Specific Styling Overrides =================== */
-
-/* Early 2000s Specific Styles */
-[data-theme="early2000s"] body {
-  font-family: var(--retro-font);
-}
-
-[data-theme="early2000s"] #toolbar {
-  background-color: var(--toolbar-bg);
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMTAwMDExAzAAQYABOKBKFk1ZXpAAAAAElFTkSuQmCC");
-  background-repeat: repeat;
-}
-
-[data-theme="early2000s"] .tab,
-[data-theme="early2000s"] .nav-button,
-[data-theme="early2000s"] #settings-button,
-[data-theme="early2000s"] .window-control {
-  border: 2px outset #d0d0d0;
-  border-radius: 0;
-  background-color: #d0d0d0;
-  box-shadow: none;
-}
-
-[data-theme="early2000s"] #url-form {
-  border: 2px inset #efefef;
-  border-radius: 0;
-  background-color: white;
-}
-
-[data-theme="early2000s"] #url-input {
-  font-family: var(--retro-font);
-}
-
-[data-theme="early2000s"] .tab-close:hover {
-  background-color: #ff0000;
-  transform: none;
-}
-
-[data-theme="early2000s"] #new-tab-button {
-  border-radius: 0;
-  border: 2px outset #d0d0d0;
-  box-shadow: none;
-}
-
-/* Windows XP Specific Styles */
-[data-theme="winxp"] #toolbar {
-  background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 10%, #2F7CFC 90%, #205CBE 100%);
-  border-bottom: 1px solid #294C98;
-}
-
-[data-theme="winxp"] .tab {
-  background-image: var(--winxp-gradient);
-  border: 1px solid #7DA2CE;
-  border-radius: 2px;
-}
-
-[data-theme="winxp"] .tab.active {
-  background: var(--winxp-gradient);
-  border: 1px solid #7DA2CE;
-}
-
-[data-theme="winxp"] .tab::before {
-  display: none;
-}
-
-[data-theme="winxp"] .tab-close {
-  background-color: #FF4444;
-  border: 1px solid #CC0000;
-  border-radius: 2px;
-}
-
-[data-theme="winxp"] .nav-button,
-[data-theme="winxp"] #settings-button,
-[data-theme="winxp"] .window-control {
-  background-image: var(--winxp-gradient);
-  border: 1px solid #7DA2CE;
-  border-radius: 2px;
-}
-
-[data-theme="winxp"] #url-form {
-  background-color: white;
-  border: 1px solid #7DA2CE;
-  border-radius: 2px;
-}
-
-[data-theme="winxp"] #new-tab-button {
-  background: var(--accent-tertiary);
-  background-image: linear-gradient(to bottom, #69D269 0%, #59B549 100%);
-  border: 1px solid #3C7D3C;
-}
-
-/* Windows 95/98 Specific Styles */
-[data-theme="win9x"] #toolbar,
-[data-theme="win9x"] #sidebar,
-[data-theme="win9x"] #title-bar {
-  background-color: var(--bg-color);
-  border-bottom: none;
-  box-shadow: none;
-}
-
-[data-theme="win9x"] .tab,
-[data-theme="win9x"] .nav-button,
-[data-theme="win9x"] #settings-button,
-[data-theme="win9x"] .window-control,
-[data-theme="win9x"] #new-tab-button {
-  background-color: var(--bg-color);
-  border-radius: 0;
-  border-top: 1px solid var(--win9x-white-border);
-  border-left: 1px solid var(--win9x-white-border);
-  border-right: 1px solid var(--win9x-black-border);
-  border-bottom: 1px solid var(--win9x-black-border);
-  box-shadow: none;
-}
-
-[data-theme="win9x"] .tab.active {
-  background-color: var(--active-bg);
-  border-top: 1px solid var(--win9x-black-border);
-  border-left: 1px solid var(--win9x-black-border);
-  border-right: 1px solid var(--win9x-white-border);
-  border-bottom: 1px solid var(--win9x-white-border);
-}
-
-[data-theme="win9x"] .tab::before {
-  display: none;
-}
-
-[data-theme="win9x"] #url-form {
-  border-radius: 0;
-  background-color: white;
-  border-top: 1px solid var(--win9x-black-border);
-  border-left: 1px solid var(--win9x-black-border);
-  border-right: 1px solid var(--win9x-white-border);
-  border-bottom: 1px solid var(--win9x-white-border);
-}
-
-[data-theme="win9x"] #new-tab-button {
-  border-radius: 0;
-}
-
-[data-theme="win9x"] .tab-close:hover {
-  transform: none;
-  background-color: #ff0000;
-}
-
 /* =================== Base Reset & Typography =================== */
 *, *::before, *::after {
   margin: 0;
@@ -1098,7 +737,7 @@ body {
 
 #settings-button:hover {
   background-color: var(--hover-bg);
-  transform: translateY(-2px) rotate(30deg);
+  transform: translateY(-2px);
   color: var(--text-color);
   box-shadow: var(--shadow-sm);
 }
@@ -1111,12 +750,13 @@ body {
   font-size: 18px;
 }
 
-/* =================== Settings Panel Component =================== */
+/* =================== Settings Panel =================== */
 #settings-panel {
   position: absolute;
   top: calc(var(--toolbar-height) + 8px);
   right: 16px;
   width: 420px;
+  height: 300px; /* Fixed height for empty panel */
   background: var(--card-bg);
   border-radius: var(--global-radius);
   box-shadow: var(--shadow-lg);
@@ -1125,759 +765,16 @@ body {
   transform: translateY(-20px);
   opacity: 0;
   pointer-events: none;
-  overflow-y: auto;
-  max-height: calc(100vh - var(--toolbar-height) - 32px);
   border: 1px solid var(--border-color);
-  backdrop-filter: blur(8px);
-  transition: transform var(--anim-medium) cubic-bezier(0.16, 1, 0.3, 1),
-              opacity var(--anim-medium) cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Active state */
 #settings-panel.active {
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
-}
-
-#settings-panel h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  color: var(--text-color);
-  text-align: center;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  position: relative;
-  padding-bottom: 10px;
-}
-
-#settings-panel h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 2px;
-  background-color: var(--accent-primary);
-  border-radius: 2px;
-}
-
-/* Settings Tabs Navigation */
-.settings-tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 20px;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 8px;
-  gap: 8px;
-  scrollbar-width: none;
-}
-
-.settings-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.settings-tab-button {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: var(--button-radius);
-  flex-shrink: 0;
-  transition: background-color var(--anim-fast) ease,
-              color var(--anim-fast) ease;
-}
-
-.settings-tab-button.active {
-  color: var(--text-color);
-  background-color: var(--hover-bg);
-  font-weight: 600;
-}
-
-.settings-tab-button:hover:not(.active) {
-  background-color: rgba(255,255,255,0.05);
-  color: var(--text-color);
-}
-
-/* Settings Content with tab transitions */
-.settings-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.settings-tab-content {
-  display: none;
-  transform: translateY(10px);
-  opacity: 0;
-  transition: transform var(--anim-medium) ease, opacity var(--anim-medium) ease;
-}
-
-.settings-tab-content.active {
-  display: block;
-  transform: translateY(0);
-  opacity: 1;
-  animation: fadeInUp 0.3s ease forwards;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Settings Sections */
-.settings-section {
-  margin-bottom: 24px;
-}
-
-.settings-section h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 6px;
-}
-
-/* Theme Presets */
-.theme-presets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.theme-preset {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--button-radius);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: transform var(--anim-fast) ease, 
-              box-shadow var(--anim-fast) ease, 
-              border-color var(--anim-fast) ease;
-}
-
-.theme-preset::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
-  opacity: 0;
-  transition: opacity var(--anim-fast) ease;
-}
-
-.theme-preset:hover::before {
-  opacity: 1;
-}
-
-.theme-preset.active {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(230,0,35,0.3);
-}
-
-.theme-preset:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
-}
-
-.theme-preset.midnight {
-  background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
-}
-
-.theme-preset.light {
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  border: 1px solid #e0e0e0;
-}
-
-.theme-preset.ocean {
-  background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
-}
-
-.theme-preset.forest {
-  background: linear-gradient(135deg, #1e2b20 0%, #314233 100%);
-}
-
-.theme-preset.sunset {
-  background: linear-gradient(135deg, #2d1b2a 0%, #522e48 100%);
-}
-
-.theme-preset.candy {
-  background: linear-gradient(135deg, #2b0030 0%, #4d005a 100%);
-}
-
-.theme-preset.neon {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-  border: 1px solid #00ff9d;
-}
-
-.theme-preset.nord {
-  background: linear-gradient(135deg, #2e3440 0%, #3b4252 100%);
-}
-
-.theme-preset.gruvbox {
-  background: linear-gradient(135deg, #282828 0%, #3c3836 100%);
-}
-
-/* New theme preset styles */
-.theme-preset.early2000s {
-  background: linear-gradient(135deg, #ffffff 0%, #d3d3d3 100%);
-  border: 1px solid #a9a9a9;
-}
-
-.theme-preset.early2000s::after {
-  content: 'www';
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  font-family: "Times New Roman", Times, serif;
-  color: #0000ff;
-  font-size: 10px;
-  text-decoration: underline;
-}
-
-.theme-preset.winxp {
-  background: linear-gradient(135deg, #205CBE 0%, #2F7CFC 100%);
-  border: 1px solid #7DA2CE;
-}
-
-.theme-preset.winxp::after {
-  content: '';
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 10px;
-  height: 10px;
-  background: linear-gradient(to bottom, #69D269 0%, #59B549 100%);
-  border-radius: 50%;
-  border: 1px solid #3C7D3C;
-}
-
-.theme-preset.win9x {
-  background: linear-gradient(135deg, #C0C0C0 0%, #C0C0C0 100%);
-  border-top: 2px solid #FFFFFF;
-  border-left: 2px solid #FFFFFF;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
-}
-
-.theme-preset.win9x::after {
-  content: '';
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 16px;
-  height: 16px;
-  background: #000080;
-}
-
-/* Form Layout Elements */
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
-.settings-select {
-  width: 100%;
-  padding: 10px 16px;
-  border-radius: var(--button-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--input-bg);
-  color: var(--text-color);
-  font-size: 14px;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23b0b0b0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  cursor: pointer;
-}
-
-.form-group.checkbox {
-  display: flex;
-  align-items: center;
-}
-
-.form-group.checkbox input[type="checkbox"] {
-  margin-right: 10px;
-  width: 18px;
-  height: 18px;
-  appearance: none;
-  background-color: var(--input-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  cursor: pointer;
-  position: relative;
-}
-
-.form-group.checkbox input[type="checkbox"]:checked {
-  background-color: var(--accent-primary);
-  border-color: var(--accent-primary);
-}
-
-.form-group.checkbox input[type="checkbox"]:checked::before {
-  content: '✓';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 12px;
-}
-
-.form-group.checkbox label {
-  margin-bottom: 0;
-  cursor: pointer;
-}
-
-.setting-description {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-  margin-left: 28px;
-}
-
-input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background: var(--border-color);
-  outline: none;
-  margin: 10px 0;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-  cursor: pointer;
-  transition: background var(--anim-fast) ease;
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-  background: var(--accent-tertiary);
-}
-
-.range-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-
-/* =================== Templates Area =================== */
-.template-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.template-card {
-  background-color: var(--button-bg);
-  border-radius: var(--button-radius);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform var(--anim-fast) ease,
-              box-shadow var(--anim-fast) ease;
-  border: 2px solid transparent;
-}
-
-.template-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-}
-
-.template-card.active {
-  border-color: var(--accent-primary);
-}
-
-.template-preview {
-  height: 120px;
-  background-color: var(--hover-bg);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Template Preview Designs */
-.template-preview.default::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  width: 30px;
-  bottom: 10px;
-  background-color: var(--active-bg);
-  border-radius: 8px;
-}
-
-.template-preview.default::after {
-  content: '';
-  position: absolute;
-  left: 50px;
-  top: 10px;
-  right: 10px;
-  height: 30px;
-  background-color: var(--active-bg);
-  border-radius: 8px;
-}
-
-.template-preview.compact::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  width: 20px;
-  bottom: 10px;
-  background-color: var(--active-bg);
-  border-radius: 8px;
-}
-
-.template-preview.compact::after {
-  content: '';
-  position: absolute;
-  left: 40px;
-  top: 10px;
-  right: 10px;
-  height: 20px;
-  background-color: var(--active-bg);
-  border-radius: 8px;
-}
-
-.template-preview.focus::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  bottom: 10px;
-  background-color: var(--active-bg);
-  border-radius: 8px;
-}
-
-.template-preview.classic::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  height: 30px;
-  background-color: var(--active-bg);
-  border-radius: 8px 8px 0 0;
-}
-
-.template-preview.classic::after {
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 40px;
-  height: 20px;
-  background-color: rgba(255,255,255,0.1);
-  border-radius: 0;
-}
-
-.template-info {
-  padding: 12px;
-}
-
-.template-info h4 {
-  font-size: 15px;
-  margin-bottom: 4px;
-  color: var(--text-color);
-}
-
-.template-info p {
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
-/* Settings Buttons */
-.settings-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.settings-button {
-  padding: 10px 20px;
-  border-radius: var(--button-radius);
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 15px;
-  transition: background-color var(--anim-fast) ease,
-              transform var(--anim-fast) ease,
-              box-shadow var(--anim-fast) ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.settings-button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity var(--anim-fast) ease;
-}
-
-.settings-button:hover::after {
-  opacity: 1;
-}
-
-.settings-button.primary {
-  background-color: var(--accent-primary);
-  color: white;
-}
-
-.settings-button.primary:hover {
-  background-color: var(--accent-tertiary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.settings-button.secondary {
-  background-color: var(--button-bg);
-  color: var(--text-secondary);
-}
-
-.settings-button.secondary:hover {
-  background-color: var(--hover-bg);
-  color: var(--text-color);
-  transform: translateY(-2px);
-}
-
-/* =================== Extensions Panel Component =================== */
-#extensions-panel {
-  position: absolute;
-  top: calc(var(--toolbar-height) + 8px);
-  right: 16px;
-  width: 400px;
-  background: var(--card-bg);
-  border-radius: var(--global-radius);
-  box-shadow: var(--shadow-lg);
-  z-index: 200;
-  padding: 20px;
-  transform: translateY(-20px);
-  opacity: 0;
-  pointer-events: none;
-  overflow-y: auto;
-  max-height: calc(100vh - var(--toolbar-height) - 32px);
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(8px);
-  transition: transform var(--anim-medium) cubic-bezier(0.16, 1, 0.3, 1),
-              opacity var(--anim-medium) cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#extensions-panel.active {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#extensions-panel h2 {
-  font-size: 20px;
-  margin-bottom: 16px;
-  color: var(--text-color);
-  font-weight: 600;
-}
-
-.extensions-search {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.extensions-search input {
-  flex: 1;
-  padding: 10px 16px;
-  border-radius: var(--input-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--input-bg);
-  color: var(--text-color);
-  font-size: 14px;
-  transition: border-color var(--anim-fast) ease,
-              background-color var(--anim-fast) ease,
-              box-shadow var(--anim-fast) ease;
-}
-
-.extensions-search input:focus {
-  border-color: var(--accent-primary);
-  background-color: var(--input-focus-bg);
-  box-shadow: var(--shadow-sm);
-  outline: none;
-}
-
-/* Quick Extensions List */
-#quick-extensions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.extension-quick-item {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  background-color: var(--hover-bg);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color var(--anim-fast) ease, 
-              transform var(--anim-fast) ease,
-              box-shadow var(--anim-fast) ease;
-}
-
-.extension-quick-item:hover {
-  background-color: var(--active-bg);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.extension-quick-item.disabled {
-  opacity: 0.7;
-}
-
-.extension-icon {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--card-bg);
-  border-radius: 8px;
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
-.extension-icon .material-symbols-rounded {
-  font-size: 20px;
-  color: var(--accent-primary);
-}
-
-.extension-quick-info {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.extension-name {
-  font-weight: 500;
-  font-size: 14px;
-}
-
-/* Toggle Switch */
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 22px;
-}
-
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--border-color);
-  border-radius: 34px;
-  transition: background-color 0.2s ease;
-}
-
-.toggle-slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  border-radius: 50%;
-  transition: transform 0.2s ease;
-}
-
-input:checked + .toggle-slider {
-  background-color: var(--accent-primary);
-}
-
-input:checked + .toggle-slider:before {
-  transform: translateX(18px);
-}
-
-.extension-empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 0;
-  color: var(--text-secondary);
-  text-align: center;
-}
-
-.extension-empty-state .material-symbols-rounded {
-  font-size: 48px;
-  margin-bottom: 16px;
-  color: var(--accent-primary);
-  opacity: 0.7;
-}
-
-.extension-empty-state p {
-  margin-bottom: 16px;
-  font-size: 15px;
-}
-
-#browse-extensions {
-  padding: 8px 16px;
-  background-color: var(--accent-primary);
-  color: white;
-  border: none;
-  border-radius: var(--button-radius);
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color var(--anim-fast) ease,
-              transform var(--anim-fast) ease;
-}
-
-#browse-extensions:hover {
-  background-color: var(--accent-tertiary);
-  transform: translateY(-2px);
 }
 
 /* =================== Webview Container =================== */
@@ -1960,50 +857,7 @@ input:checked + .toggle-slider:before {
   opacity: 1;
 }
 
-/* =================== Bookmarks Bar =================== */
-.bookmarks-bar {
-  display: flex;
-  height: 36px;
-  background-color: var(--card-bg);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 16px;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: none;
-}
-
-.bookmarks-bar::-webkit-scrollbar {
-  display: none;
-}
-
-.bookmark-item {
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  height: 100%;
-  cursor: pointer;
-  color: var(--text-secondary);
-  transition: color var(--anim-fast) ease;
-  border-bottom: 2px solid transparent;
-}
-
-.bookmark-item:hover {
-  color: var(--text-color);
-  border-bottom: 2px solid var(--accent-primary);
-}
-
-.bookmark-item .material-symbols-rounded {
-  font-size: 18px;
-  margin-right: 6px;
-}
-
-.bookmark-title {
-  font-size: 12px;
-  font-weight: 500;
-}
-
-/* =================== Added Animations =================== */
-/* Tab switching animation */
+/* =================== Tab switching animation =================== */
 .tab.new-tab {
   animation: tabAppear 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -2024,150 +878,13 @@ input:checked + .toggle-slider:before {
   100% { transform: scale(1); }
 }
 
-/* Loading spinner animation for longer page loads */
-.loading-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: var(--accent-primary);
-  animation: spin 1s linear infinite;
-  display: inline-block;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Page transition effect */
-#webview-container.page-transition::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--bg-color);
-  opacity: 0;
-  z-index: 10;
-  animation: flashFade 0.3s ease-out;
-  pointer-events: none;
-}
-
-@keyframes flashFade {
-  0% { opacity: 0; }
-  50% { opacity: 0.1; }
-  100% { opacity: 0; }
-}
-
-/* =================== Template Layout Styles =================== */
-/* Focus Mode */
-body[data-template="focus"] .nav-button,
-body[data-template="focus"] #settings-button {
-  opacity: 0.5;
-  transition: opacity var(--anim-fast) ease;
-}
-
-body[data-template="focus"] .nav-button:hover,
-body[data-template="focus"] #settings-button:hover {
-  opacity: 1;
-}
-
-body[data-template="focus"] #toolbar {
-  backdrop-filter: blur(10px);
-  background-color: rgba(18, 18, 18, 0.7);
-}
-
-/* Classic Mode */
-body[data-template="classic"] #tabs-container {
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-
-body[data-template="classic"] .tab {
-  width: 180px;
-  min-width: 180px;
-  max-width: 180px;
-  height: 140px;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-body[data-template="classic"] .tab-favicon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 10px;
-}
-
-body[data-template="classic"] .tab-title {
-  max-width: 100%;
-  text-align: center;
-  margin: 0 0 10px;
-}
-
-body[data-template="classic"] .tab-close {
-  margin: 0;
-}
-
-/* Sidebar Right Layout */
-body.sidebar-right #browser-container {
-  flex-direction: row-reverse;
-}
-
-body.sidebar-right #sidebar {
-  border-right: none;
-  border-left: 1px solid rgba(255,255,255,0.05);
-}
-
-body.sidebar-right #sidebar.collapsed .tab::after {
-  left: auto;
-  right: 52px;
-}
-
-/* Hide Tab Titles in Sidebar */
-#sidebar.hide-tab-titles .tab-title {
-  display: none;
-}
-
-#sidebar.hide-tab-titles .tab {
-  justify-content: center;
-}
-
-#sidebar.hide-tab-titles .tab-favicon {
-  margin-right: 8px;
-}
-
-/* Tab Sizes */
-body[data-tab-size="1"] .tab {
-  padding: 8px;
-}
-
-body[data-tab-size="1"] .tab-favicon {
-  width: 24px;
-  height: 24px;
-}
-
-body[data-tab-size="3"] .tab {
-  padding: 16px;
-}
-
-body[data-tab-size="3"] .tab-favicon {
-  width: 32px;
-  height: 32px;
-}
-
 /* =================== Responsive Design =================== */
 @media (max-width: 768px) {
   #url-container {
     max-width: 100%;
   }
   
-  #settings-panel,
-  #extensions-panel {
+  #settings-panel {
     width: calc(100% - 32px);
     right: 16px;
     left: 16px;
@@ -2193,237 +910,11 @@ body[data-tab-size="3"] .tab-favicon {
     height: 38px;
   } 
 }
-
-/* =================== Theme-specific Components =================== */
-/* Early 2000s components */
-.early2000s-counter {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #000080;
-  color: #FFFF00;
-  border: 2px solid #FFFFFF;
-  padding: 5px 10px;
-  font-family: "Times New Roman", serif;
-  font-size: 12px;
-  display: flex;
-  z-index: 1000;
-}
-
-.counter-value {
-  color: #00FF00;
-  margin-left: 5px;
-}
-
-.construction-banner {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #FFFF00;
-  border: 3px solid #FF0000;
-  padding: 10px;
-  text-align: center;
-  font-family: "Times New Roman", serif;
-  font-weight: bold;
-  color: #FF0000;
-  z-index: 1000;
-  animation: blink 1s infinite;
-}
-
-.construction-animation {
-  width: 100px;
-  height: 20px;
-  margin: 10px auto;
-  background: repeating-linear-gradient(
-    45deg,
-    #FF0000,
-    #FF0000 10px,
-    #FFFF00 10px,
-    #FFFF00 20px
-  );
-}
-
-.early2000s-loading {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #000080;
-  color: #FFFFFF;
-  font-family: "Times New Roman", serif;
-  padding: 5px 10px;
-  border: 2px outset #d0d0d0;
-  z-index: 1000;
-}
-
-/* Windows XP components */
-.winxp-start-button {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(to bottom, #3c873c 0%, #1e5f1e 48%, #0d4b0d 52%, #306b30 100%);
-  border: 1px solid #215a21;
-  border-radius: 3px;
-  padding: 2px 10px;
-  margin-right: 10px;
-  height: 30px;
-  cursor: pointer;
-}
-
-.start-icon {
-  width: 20px;
-  height: 20px;
-  background-color: #36a336;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-
-.start-text {
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.winxp-start-menu {
-  position: fixed;
-  bottom: 40px;
-  left: 0;
-  width: 300px;
-  background: #ECE9D8;
-  border: 1px solid #333;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-  z-index: 1000;
-  animation: slideUp 0.2s ease;
-}
-
-.winxp-loading {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-}
-
-.xp-loading-circle {
-  width: 32px;
-  height: 32px;
-  border: 3px solid #2F7CFC;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 1s linear infinite;
-}
-
-/* Windows 95/98 components */
-.win9x-error {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  background-color: #C0C0C0;
-  border-top: 1px solid #FFFFFF;
-  border-left: 1px solid #FFFFFF;
-  border-right: 1px solid #000000;
-  border-bottom: 1px solid #000000;
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
-  z-index: 9999;
-}
-
-.win9x-error-title {
-  background-color: #000080;
-  color: white;
-  padding: 3px 5px;
-  font-weight: bold;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  cursor: move;
-}
-
-/* Animation keyframes */
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0.7; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.theme-loading-indicator {
-  z-index: 999;
-} 
-
-/* =================== NEW THEME SKINS =================== */
-
-/* 1. Modern Minimalistic - Dark */
-[data-theme="minimalist-dark"] {
-  --bg-color: #0f0f0f;
-  --sidebar-bg: #161616;
-  --toolbar-bg: #161616;
-  --card-bg: #1e1e1e;
-  --hover-bg: #282828;
-  --active-bg: #303030;
-  --text-color: #f5f5f5;
-  --text-secondary: #a0a0a0;
-  --border-color: #303030;
-  
-  --accent-primary: #616FEE;
-  --accent-secondary: #4E5BD0;
-  --accent-tertiary: #8691FF;
-  
-  --input-bg: #252525;
-  --input-focus-bg: #303030;
-  --close-hover: #FF4477;
-  --button-bg: #252525;
-  --button-hover: #333333;
-  
-  --global-radius: 8px;
-  --button-radius: 8px;
-  --input-radius: 8px;
-  
-  --shadow-sm: 0 2px 6px rgba(0,0,0,0.15);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.15);
-  --shadow-lg: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-/* Modern Minimalistic - Light */
-[data-theme="minimalist-light"] {
-  --bg-color: #ffffff;
-  --sidebar-bg: #f5f5f5;
-  --toolbar-bg: #f5f5f5;
-  --card-bg: #ffffff;
-  --hover-bg: #f0f0f0;
-  --active-bg: #e8e8e8;
-  --text-color: #191919;
-  --text-secondary: #616161;
-  --border-color: #e0e0e0;
-  
-  --accent-primary: #616FEE;
-  --accent-secondary: #4E5BD0;
-  --accent-tertiary: #8691FF;
-  
-  --input-bg: #f7f7f7;
-  --input-focus-bg: #ffffff;
-  --close-hover: #FF4477;
-  --button-bg: #f0f0f0;
-  --button-hover: #e5e5e5;
-  
-  --global-radius: 8px;
-  --button-radius: 8px;
-  --input-radius: 8px;
-  
-  --shadow-sm: 0 2px 6px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.08);
-  --shadow-lg: 0 6px 12px rgba(0,0,0,0.1);
-}
-
-/* 2. Retro Combo Theme - Combines Windows XP, 98, and early 2000s web */
-[data-theme="retro-combo"] {
+/* Windows XP Theme */
+[data-theme="winxp"] {
   --bg-color: #ECE9D8;
-  --sidebar-bg: #D4D0C8;
-  --toolbar-bg: #316AC5;
+  --sidebar-bg: #ECE9D8;
+  --toolbar-bg: #2A52BE;
   --card-bg: #FFFFFF;
   --hover-bg: #FFE7A2;
   --active-bg: #FFC83C;
@@ -2431,612 +922,218 @@ body[data-tab-size="3"] .tab-favicon {
   --text-secondary: #444444;
   --border-color: #B5B3A9;
   
-  --accent-primary: #0000FF;
-  --accent-secondary: #FF00FF;
-  --accent-tertiary: #FF0000;
+  --accent-primary: #346DC2;
+  --accent-secondary: #4E8DF2;
+  --accent-tertiary: #59B549;
   
-  --input-bg: #FFFFFF;
-  --input-focus-bg: #F5F5FF;
-  --close-hover: #FF0000;
-  --button-bg: #D4D0C8;
-  --button-hover: #B5B3A9;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 2px 4px rgba(0,0,0,0.2);
+  --shadow-lg: 0 3px 6px rgba(0,0,0,0.2);
   
-  --global-radius: 0;
-  --button-radius: 0;
-  --input-radius: 0;
-  
-  --shadow-sm: 2px 2px 0 #808080;
-  --shadow-md: 3px 3px 0 #808080;
-  --shadow-lg: 4px 4px 0 #808080;
-  
-  /* Special retro styling overrides */
-  --retro-font: "Times New Roman", Times, serif;
+  /* Button gradient */
   --winxp-gradient: linear-gradient(to bottom, #E9FCF9 0%, #CEEEFA 25%, #A5DFEF 50%, #8ED4E7 51%, #D3F4FB 100%);
-  --win9x-white-border: #FFFFFF;
-  --win9x-black-border: #000000;
 }
 
-/* 3. Frutiger Metro Design */
-[data-theme="metro"] {
-  --bg-color: #1B1B1B;
-  --sidebar-bg: #252525;
-  --toolbar-bg: #252525;
-  --card-bg: #2D2D2D;
-  --hover-bg: #3a3a3a;
-  --active-bg: #424242;
-  --text-color: #FFFFFF;
-  --text-secondary: #BBBBBB;
-  --border-color: #424242;
-  
-  --accent-primary: #00BCF2;
-  --accent-secondary: #009DCD;
-  --accent-tertiary: #57D0FF;
-  
-  --input-bg: #3a3a3a;
-  --input-focus-bg: #424242;
-  --close-hover: #E81123;
-  --button-bg: #3a3a3a;
-  --button-hover: #4a4a4a;
-  
-  --global-radius: 0;
-  --button-radius: 0;
-  --input-radius: 0;
-  
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-}
-
-/* =================== THEME-SPECIFIC STYLING =================== */
-
-/* Modern Minimalistic Specific Styles */
-[data-theme="minimalist-dark"] .tab,
-[data-theme="minimalist-light"] .tab {
-  border-radius: var(--global-radius);
-  border: none;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-[data-theme="minimalist-dark"] .tab.active::before,
-[data-theme="minimalist-light"] .tab.active::before {
-  display: none;
-}
-
-[data-theme="minimalist-dark"] .tab.active,
-[data-theme="minimalist-light"] .tab.active {
-  border-left: 3px solid var(--accent-primary);
-}
-
-[data-theme="minimalist-dark"] #toolbar,
-[data-theme="minimalist-light"] #toolbar {
-  height: 70px;
-  background-color: var(--toolbar-bg);
-  border-bottom: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-[data-theme="minimalist-dark"] #url-form,
-[data-theme="minimalist-light"] #url-form {
-  border: none;
-  height: 46px;
-  box-shadow: var(--shadow-sm);
-}
-
-[data-theme="minimalist-dark"] .nav-button,
-[data-theme="minimalist-dark"] #settings-button,
-[data-theme="minimalist-light"] .nav-button,
-[data-theme="minimalist-light"] #settings-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-/* Retro Combo Specific Styles */
-[data-theme="retro-combo"] body {
-  font-family: var(--retro-font);
-}
-
-[data-theme="retro-combo"] #toolbar {
+/* Windows XP Specific Styles */
+[data-theme="winxp"] #toolbar {
   background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 10%, #2F7CFC 90%, #205CBE 100%);
   border-bottom: 1px solid #294C98;
 }
 
-[data-theme="retro-combo"] .tab {
-  background-color: var(--bg-color);
-  border-top: 1px solid var(--win9x-white-border);
-  border-left: 1px solid var(--win9x-white-border);
-  border-right: 1px solid var(--win9x-black-border);
-  border-bottom: 1px solid var(--win9x-black-border);
-  border-radius: 0;
-  box-shadow: none;
-}
-
-[data-theme="retro-combo"] .tab.active {
-  background-color: var(--active-bg);
-  border-top: 1px solid var(--win9x-black-border);
-  border-left: 1px solid var(--win9x-black-border);
-  border-right: 1px solid var(--win9x-white-border);
-  border-bottom: 1px solid var(--win9x-white-border);
-}
-
-[data-theme="retro-combo"] .tab::before {
-  display: none;
-}
-
-[data-theme="retro-combo"] #url-form {
-  border-radius: 0;
-  background-color: white;
-  border-top: 1px solid var(--win9x-black-border);
-  border-left: 1px solid var(--win9x-black-border);
-  border-right: 1px solid var(--win9x-white-border);
-  border-bottom: 1px solid var(--win9x-white-border);
-}
-
-[data-theme="retro-combo"] .nav-button,
-[data-theme="retro-combo"] #settings-button {
-  border-radius: 0;
-  background-color: var(--button-bg);
-  border-top: 1px solid var(--win9x-white-border);
-  border-left: 1px solid var(--win9x-white-border);
-  border-right: 1px solid var(--win9x-black-border);
-  border-bottom: 1px solid var(--win9x-black-border);
-  box-shadow: none;
-}
-
-[data-theme="retro-combo"] .nav-button:active,
-[data-theme="retro-combo"] #settings-button:active {
-  border-top: 1px solid var(--win9x-black-border);
-  border-left: 1px solid var(--win9x-black-border);
-  border-right: 1px solid var(--win9x-white-border);
-  border-bottom: 1px solid var(--win9x-white-border);
-}
-
-[data-theme="retro-combo"] .tab-favicon {
-  background-color: transparent;
-}
-
-[data-theme="retro-combo"] #new-tab-button {
-  border-radius: 0;
-  background-color: var(--button-bg);
-  border-top: 1px solid var(--win9x-white-border);
-  border-left: 1px solid var(--win9x-white-border);
-  border-right: 1px solid var(--win9x-black-border);
-  border-bottom: 1px solid var(--win9x-black-border);
-  box-shadow: none;
-}
-
-[data-theme="retro-combo"] .theme-preset.active {
-  border: 2px solid #0000FF;
-}
-
-/* Add Microsoft "Under Construction" GIF effect */
-[data-theme="retro-combo"] #webview-container::after {
-  content: '';
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 100px;
-  height: 100px;
-  background-image: url("data:image/gif;base64,R0lGODlhIAAgALMAAAAAAP///wAre6zY/pPO/oTI/YDD/XC8/Gm4+2W3+2O2+2C1+1+1+////wAAAAAAACH5BAEAAAIALAAAAAAgACAAAASbUMhJq714ary578kJhxgKYZ7BkaDptrLpeXIrX5+WnMd1TaglGvdDgRBDLtYi0Go9HqtFglL6bDqr1mwWO91+v97wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr/AwcLDxMXGx0AhADs=");
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* Add "hit counter" */
-[data-theme="retro-combo"] #webview-container::before {
-  content: 'Visitors: 12345';
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background-color: #000080;
-  color: #FFFF00;
-  font-family: "Comic Sans MS", cursive;
-  font-size: 12px;
-  padding: 2px 5px;
-  border: 1px solid #FFFFFF;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Metro Design Specific Styles */
-[data-theme="metro"] .tab,
-[data-theme="metro"] .nav-button,
-[data-theme="metro"] #settings-button,
-[data-theme="metro"] #new-tab-button,
-[data-theme="metro"] #url-form {
-  border-radius: 0;
-  box-shadow: none;
-  border: none;
-  transition: all 0.2s ease;
-}
-
-[data-theme="metro"] .tab {
-  border-left: 3px solid transparent;
-}
-
-[data-theme="metro"] .tab.active {
-  border-left: 3px solid var(--accent-primary);
-}
-
-[data-theme="metro"] .tab::before {
-  display: none;
-}
-
-[data-theme="metro"] .tab-favicon {
-  background-color: transparent;
-  box-shadow: none;
-}
-
-[data-theme="metro"] #toolbar {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-}
-
-[data-theme="metro"] #url-form {
-  height: 50px;
-  background-color: var(--input-bg);
-}
-
-[data-theme="metro"] .nav-button,
-[data-theme="metro"] #settings-button {
-  width: 50px;
-  height: 50px;
-}
-
-[data-theme="metro"] .nav-button .material-symbols-rounded,
-[data-theme="metro"] #settings-button .material-symbols-rounded {
-  font-size: 24px;
-}
-
-[data-theme="metro"] #new-tab-button {
-  width: 100%;
-  height: 50px;
-  border-radius: 0;
-  background-color: var(--accent-primary);
-  color: white;
-  font-weight: 600;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  transition: background-color 0.2s ease;
-}
-
-[data-theme="metro"] #new-tab-button::after {
-  content: "New Tab";
-  margin-left: 8px;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 1px;
-}
-
-[data-theme="metro"] #sidebar {
-  width: 280px;
-}
-
-[data-theme="metro"] #tabs-container {
-  gap: 1px;
-  padding: 0;
-}
-
-[data-theme="metro"] .tab {
-  margin-bottom: 0;
-  padding: 16px;
-}
-
-/* Theme Presets for New Themes */
-.theme-preset.minimalist-dark {
-  background: linear-gradient(135deg, #0f0f0f 0%, #1e1e1e 100%);
-  border: 1px solid #616FEE;
-}
-
-.theme-preset.minimalist-light {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-  border: 1px solid #616FEE;
-}
-
-.theme-preset.retro-combo {
-  background: linear-gradient(135deg, #ECE9D8 0%, #D4D0C8 100%);
-  border: 1px solid #000080;
-}
-
-.theme-preset.metro {
-  background: linear-gradient(135deg, #1B1B1B 0%, #2D2D2D 100%);
-  border: 1px solid #00BCF2;
-}
-
-/* =================== HOMEPAGE THEME INTEGRATION =================== */
-/* This code will be added to homepage.html to make it respect the themes */
-
-/* Minimalist Dark Theme Homepage */
-[data-theme="minimalist-dark"] .homepage-body {
-  background-color: #0f0f0f;
-  color: #f5f5f5;
-}
-
-[data-theme="minimalist-dark"] .homepage-logo {
-  color: #616FEE;
-}
-
-[data-theme="minimalist-dark"] .homepage-subtitle {
-  color: #a0a0a0;
-}
-
-[data-theme="minimalist-dark"] .homepage-bookmark {
-  background-color: #1e1e1e;
-  box-shadow: var(--shadow-sm);
-  border: none;
-}
-
-[data-theme="minimalist-dark"] .homepage-bookmark:hover {
-  background-color: #282828;
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-}
-
-/* Minimalist Light Theme Homepage */
-[data-theme="minimalist-light"] .homepage-body {
-  background-color: #ffffff;
-  color: #191919;
-}
-
-[data-theme="minimalist-light"] .homepage-logo {
-  color: #616FEE;
-}
-
-[data-theme="minimalist-light"] .homepage-subtitle {
-  color: #616161;
-}
-
-[data-theme="minimalist-light"] .homepage-bookmark {
-  background-color: #f5f5f5;
-  box-shadow: var(--shadow-sm);
-  border: none;
-}
-
-[data-theme="minimalist-light"] .homepage-bookmark:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-}
-
-/* Retro Combo Theme Homepage */
-[data-theme="retro-combo"] .homepage-body {
-  background-color: #ECE9D8;
-  color: #000000;
-  font-family: var(--retro-font);
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMTAwMDExAzAAQYABOKBKFk1ZXpAAAAAElFTkSuQmCC");
-}
-
-[data-theme="retro-combo"] .homepage-logo {
-  color: #0000FF;
-  text-decoration: underline;
-  font-weight: bold;
-  font-family: "Comic Sans MS", cursive;
-  text-shadow: 2px 2px 0 #FFFFFF;
-}
-
-[data-theme="retro-combo"] .homepage-subtitle {
-  color: #000080;
-  font-family: "Times New Roman", Times, serif;
-}
-
-[data-theme="retro-combo"] .homepage-bookmark {
-  background-color: #D4D0C8;
-  border-top: 1px solid var(--win9x-white-border);
-  border-left: 1px solid var(--win9x-white-border);
-  border-right: 1px solid var(--win9x-black-border);
-  border-bottom: 1px solid var(--win9x-black-border);
-  border-radius: 0;
-  box-shadow: none;
-}
-
-[data-theme="retro-combo"] .homepage-bookmark:hover {
-  border-top: 1px solid var(--win9x-black-border);
-  border-left: 1px solid var(--win9x-black-border);
-  border-right: 1px solid var(--win9x-white-border);
-  border-bottom: 1px solid var(--win9x-white-border);
-  transform: none;
-}
-
-[data-theme="retro-combo"] .homepage-bookmark-title {
-  color: #0000FF;
-  text-decoration: underline;
-}
-
-/* Metro Theme Homepage */
-[data-theme="metro"] .homepage-body {
-  background-color: #1B1B1B;
-  color: #FFFFFF;
-}
-
-[data-theme="metro"] .homepage-logo {
-  color: #00BCF2;
-  font-weight: 300;
-  letter-spacing: -1px;
-  text-transform: uppercase;
-}
-
-[data-theme="metro"] .homepage-subtitle {
-  color: #BBBBBB;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-[data-theme="metro"] .homepage-bookmark {
-  background-color: #2D2D2D;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  border-bottom: 3px solid var(--accent-primary);
-  transition: background-color 0.2s ease;
-}
-
-[data-theme="metro"] .homepage-bookmark:hover {
-  background-color: #3a3a3a;
-  transform: none;
-  box-shadow: none;
-}
-
-[data-theme="metro"] .homepage-bookmark-icon {
-  margin: 0 auto 20px;
-}
-
-[data-theme="metro"] .homepage-bookmark-title {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 300;
-}
-
-/* Homepage bookmarks grid for Metro theme */
-[data-theme="metro"] .homepage-bookmarks {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  max-width: 1000px;
-}
-
-/* Special animation for Metro theme */
-@keyframes metroTileAnimation {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-[data-theme="metro"] .homepage-bookmark {
-  opacity: 0;
-  animation: metroTileAnimation 0.5s forwards;
-}
-
-[data-theme="metro"] .homepage-bookmark:nth-child(1) { animation-delay: 0.1s; }
-[data-theme="metro"] .homepage-bookmark:nth-child(2) { animation-delay: 0.2s; }
-[data-theme="metro"] .homepage-bookmark:nth-child(3) { animation-delay: 0.3s; }
-[data-theme="metro"] .homepage-bookmark:nth-child(4) { animation-delay: 0.4s; }
-
-/* =================== Homepage Bookmarks Integration =================== */
-/* These styles should be added to your style.css file to ensure bookmark styling 
-   matches the currently selected browser theme */
-
-/* Ensure bookmark grid adapts to theme colors */
-.bookmarks {
-  --bookmark-bg: var(--card-bg);
-  --bookmark-hover-bg: var(--hover-bg);
-  --bookmark-text: var(--text-color);
-  --bookmark-secondary-text: var(--text-secondary);
-}
-
-/* Bookmark elements */
-.bookmark {
-  background-color: var(--bookmark-bg);
-  color: var(--bookmark-text);
-  border-radius: var(--global-radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-.bookmark:hover {
-  background-color: var(--bookmark-hover-bg);
-  box-shadow: var(--shadow-md);
-}
-
-.bookmark-title {
-  color: var(--bookmark-text);
-}
-
-/* Drag and drop styles with theme colors */
-.bookmark.drag-over {
-  border: 2px dashed var(--accent-primary);
-  background-color: rgba(var(--accent-primary-rgb, 230, 0, 35), 0.1);
-}
-
-.bookmark.folder-drop-target {
-  border: 2px dashed var(--accent-tertiary);
-  background-color: rgba(var(--accent-tertiary-rgb, 255, 68, 119), 0.1);
-}
-
-/* Add bookmark button */
-.add-bookmark {
-  background-color: var(--button-bg);
-  border: 2px dashed var(--border-color);
-  color: var(--text-secondary);
-}
-
-.add-bookmark:hover {
-  border-color: var(--accent-primary);
-  background-color: var(--button-hover);
-}
-
-/* Folder children */
-.bookmark-folder-children {
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color);
-  border-radius: calc(var(--global-radius) - 6px);
-}
-
-/* Add child bookmark button */
-.add-child-bookmark {
-  background-color: var(--accent-primary);
-}
-
-.add-child-bookmark:hover {
-  background-color: var(--accent-tertiary);
-}
-
-/* Remove bookmark button */
-.remove-bookmark:hover {
-  background-color: var(--close-hover, #ff4477);
-}
-
-/* Dialog styles for bookmark add/edit matching theme */
-.bookmark-dialog {
-  background-color: var(--card-bg);
-  border-radius: var(--global-radius);
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
-}
-
-/* Handle specific theme overrides */
-[data-theme="light"] .bookmark-folder-children {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-[data-theme="win9x"] .bookmark,
-[data-theme="winxp"] .bookmark,
-[data-theme="early2000s"] .bookmark {
-  border-radius: 0;
-}
-
-[data-theme="win9x"] .bookmark {
-  border-top: 1px solid var(--win9x-white-border);
-  border-left: 1px solid var(--win9x-white-border);
-  border-right: 1px solid var(--win9x-black-border);
-  border-bottom: 1px solid var(--win9x-black-border);
-  box-shadow: none;
-}
-
-[data-theme="win9x"] .bookmark:hover {
-  transform: none;
-}
-
-[data-theme="winxp"] .bookmark {
+[data-theme="winxp"] .tab {
   background-image: var(--winxp-gradient);
+  border: 1px solid #7DA2CE;
+  border-radius: 2px;
+}
+
+[data-theme="winxp"] .tab.active {
+  background: var(--winxp-gradient);
   border: 1px solid #7DA2CE;
 }
 
-[data-theme="metro"] .bookmark {
-  border-radius: 0;
-  box-shadow: none;
-  border: none;
-  transition: all 0.2s ease;
+[data-theme="winxp"] .tab::before {
+  display: none;
 }
 
-[data-theme="metro"] .bookmark-folder-children {
+[data-theme="winxp"] .tab-close {
+  background-color: #FF4444;
+  border: 1px solid #CC0000;
+  border-radius: 2px;
+}
+
+[data-theme="winxp"] .nav-button,
+[data-theme="winxp"] #settings-button,
+[data-theme="winxp"] .window-control {
+  background-image: var(--winxp-gradient);
+  border: 1px solid #7DA2CE;
+  border-radius: 2px;
+}
+
+[data-theme="winxp"] #url-form {
+  background-color: white;
+  border: 1px solid #7DA2CE;
+  border-radius: 2px;
+}
+
+[data-theme="winxp"] #new-tab-button {
+  background: var(--accent-tertiary);
+  background-image: linear-gradient(to bottom, #69D269 0%, #59B549 100%);
+  border: 1px solid #3C7D3C;
+}
+
+/* Windows XP Title Bar */
+[data-theme="winxp"] #title-bar {
+  background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 100%);
+  color: white;
+  border-bottom: 1px solid #294C98;
+  padding: 4px 10px;
+}
+
+[data-theme="winxp"] #title {
+  font-weight: bold;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Windows XP Start Page Styling */
+[data-theme="winxp"] #browser-view {
+  background-color: #ECE9D8;
+}
+
+/* Style for XP window inside panel */
+[data-theme="winxp"] #settings-panel {
+  background-color: #ECE9D8;
+  border: 1px solid #91765C;
   border-radius: 0;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+[data-theme="winxp"] #settings-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 100%);
+  border-bottom: 1px solid #294C98;
+}
+
+/* Windows XP Start Button */
+[data-theme="winxp"] .winxp-start-button {
+  position: fixed;
+  left: 5px;
+  bottom: 5px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, #3c873c 0%, #1e5f1e 48%, #0d4b0d 52%, #306b30 100%);
+  border: 1px solid #215a21;
+  border-radius: 3px;
+  padding: 2px 10px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+[data-theme="winxp"] .winxp-start-button .start-icon {
+  width: 20px;
+  height: 20px;
+  background-color: #36a336;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+[data-theme="winxp"] .winxp-start-button .start-text {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Styles for Kasimir Start Page (Homepage) */
+[data-theme="winxp"] iframe[src*="homepage.html"],
+[data-theme="winxp"] webview[src*="homepage.html"] {
+  background-color: #ECE9D8 !important;
+}
+
+/* This will be applied to the homepage once loaded */
+[data-theme="winxp"] .header {
+  background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 100%);
+  padding: 8px 0;
+  border-radius: 3px;
+  border: 1px solid #7DA2CE;
+  margin-bottom: 20px;
+}
+
+[data-theme="winxp"] .logo {
+  color: white !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  font-family: 'Tahoma', sans-serif;
+}
+
+[data-theme="winxp"] .subtitle {
+  color: #ffffff !important;
+  font-family: 'Tahoma', sans-serif;
+}
+
+[data-theme="winxp"] .bookmark-content {
+  background-image: var(--winxp-gradient);
+  border: 1px solid #7DA2CE !important;
+  border-radius: 3px !important;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+[data-theme="winxp"] .bookmark-title {
+  font-family: 'Tahoma', sans-serif;
+  color: #000000 !important;
+}
+
+[data-theme="winxp"] #open-bookmark-form-btn {
+  background-image: linear-gradient(to bottom, #69D269 0%, #59B549 100%);
+  border: 1px solid #3C7D3C !important;
+  border-radius: 3px !important;
+  color: white !important;
+}
+
+[data-theme="winxp"] #form-overlay {
+  backdrop-filter: blur(2px);
+}
+
+[data-theme="winxp"] #add-bookmark-form {
+  background-color: #ECE9D8;
+  border: 1px solid #91765C;
+  border-radius: 0;
+}
+
+[data-theme="winxp"] #add-bookmark-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 100%);
+  border-bottom: 1px solid #294C98;
+}
+
+[data-theme="winxp"] .form-title {
+  color: white;
+  position: relative;
+  z-index: 1;
+  font-family: 'Tahoma', sans-serif;
+}
+
+[data-theme="winxp"] .form-group input {
+  border: 1px solid #7DA2CE;
+  background-color: white;
+}
+
+[data-theme="winxp"] #save-bookmark-btn {
+  background-image: linear-gradient(to bottom, #69D269 0%, #59B549 100%);
+  border: 1px solid #3C7D3C;
+}
+
+[data-theme="winxp"] #cancel-bookmark-btn {
+  background-image: var(--winxp-gradient);
+  border: 1px solid #7DA2CE;
 }

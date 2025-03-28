@@ -574,5 +574,160 @@
       }
     });
   </script>
+
+  <!-- Theme integration for homepage -->
+  <script>
+    // Theme integration for the Kasimir start page
+    (function() {
+      // Notify parent window that homepage has loaded
+      window.addEventListener('DOMContentLoaded', function() {
+        try {
+          // First try to set theme based on parent's data-theme attribute
+          if (window.parent && window.parent.document) {
+            const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
+            if (parentTheme) {
+              applyTheme(parentTheme);
+            }
+          }
+          
+          // Then notify parent we're loaded (may get updated theme)
+          if (window.parent) {
+            window.parent.postMessage({ type: 'homepage-loaded' }, '*');
+          }
+        } catch (e) {
+          console.log('Could not access parent window theme');
+        }
+      });
+      
+      // Listen for theme change messages from parent window
+      window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'theme-change') {
+          applyTheme(event.data.theme);
+        }
+      });
+      
+      // Apply theme to homepage elements
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        if (theme === 'winxp') {
+          // Add Windows XP specific styling
+          applyWindowsXPTheme();
+        }
+      }
+      
+      // Apply Windows XP specific styling and elements
+      function applyWindowsXPTheme() {
+        // Add Windows XP specific font if not already added
+        if (!document.getElementById('winxp-font')) {
+          const fontLink = document.createElement('link');
+          fontLink.id = 'winxp-font';
+          fontLink.rel = 'stylesheet';
+          fontLink.href = 'https://fonts.googleapis.com/css2?family=Tahoma&display=swap';
+          document.head.appendChild(fontLink);
+        }
+        
+        // Add Windows XP CSS if not already added
+        if (!document.getElementById('winxp-style')) {
+          const style = document.createElement('style');
+          style.id = 'winxp-style';
+          style.textContent = `
+            body[data-theme="winxp"] {
+              background-color: #ECE9D8;
+              font-family: 'Tahoma', sans-serif;
+            }
+            
+            body[data-theme="winxp"] .header {
+              background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 100%);
+              padding: 8px 0;
+              border-radius: 3px;
+              border: 1px solid #7DA2CE;
+              margin-bottom: 20px;
+            }
+            
+            body[data-theme="winxp"] .logo {
+              color: white !important;
+              text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+              font-family: 'Tahoma', sans-serif;
+            }
+            
+            body[data-theme="winxp"] .subtitle {
+              color: #ffffff !important;
+              font-family: 'Tahoma', sans-serif;
+            }
+            
+            body[data-theme="winxp"] .bookmark-content {
+              background-image: linear-gradient(to bottom, #E9FCF9 0%, #CEEEFA 25%, #A5DFEF 50%, #8ED4E7 51%, #D3F4FB 100%);
+              border: 1px solid #7DA2CE !important;
+              border-radius: 3px !important;
+              box-shadow: 2px 2px 4px rgba(0,0,0,0.2) !important;
+            }
+            
+            body[data-theme="winxp"] .bookmark-title {
+              font-family: 'Tahoma', sans-serif;
+              color: #000000 !important;
+            }
+            
+            body[data-theme="winxp"] #open-bookmark-form-btn {
+              background-image: linear-gradient(to bottom, #69D269 0%, #59B549 100%);
+              border: 1px solid #3C7D3C !important;
+              border-radius: 3px !important;
+              color: white !important;
+            }
+            
+            body[data-theme="winxp"] #form-overlay {
+              backdrop-filter: blur(2px);
+            }
+            
+            body[data-theme="winxp"] #add-bookmark-form {
+              background-color: #ECE9D8;
+              border: 1px solid #91765C;
+              border-radius: 0;
+              position: relative;
+              padding-top: 30px;
+            }
+            
+            body[data-theme="winxp"] #add-bookmark-form::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 28px;
+              background: linear-gradient(to bottom, #205CBE 0%, #2F7CFC 100%);
+              border-bottom: 1px solid #294C98;
+            }
+            
+            body[data-theme="winxp"] .form-title {
+              color: white;
+              position: absolute;
+              top: 4px;
+              left: 0;
+              right: 0;
+              text-align: center;
+              z-index: 1;
+              font-family: 'Tahoma', sans-serif;
+            }
+            
+            body[data-theme="winxp"] .form-group input {
+              border: 1px solid #7DA2CE;
+              background-color: white;
+            }
+            
+            body[data-theme="winxp"] #save-bookmark-btn {
+              background-image: linear-gradient(to bottom, #69D269 0%, #59B549 100%);
+              border: 1px solid #3C7D3C;
+            }
+            
+            body[data-theme="winxp"] #cancel-bookmark-btn {
+              background-image: linear-gradient(to bottom, #E9FCF9 0%, #CEEEFA 25%, #A5DFEF 50%, #8ED4E7 51%, #D3F4FB 100%);
+              border: 1px solid #7DA2CE;
+            }
+          `;
+          document.head.appendChild(style);
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
