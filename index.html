@@ -106,9 +106,170 @@
         </button>
       </div>
 
-      <!-- Settings Panel (Empty) -->
+      <!-- Settings Panel -->
       <div id="settings-panel">
-        <!-- Empty settings panel with no content -->
+        <h2>Settings</h2>
+        
+        <div class="settings-tabs">
+          <button class="settings-tab-button active" data-tab="appearance">Appearance</button>
+          <button class="settings-tab-button" data-tab="behavior">Behavior</button>
+          <button class="settings-tab-button" data-tab="privacy">Privacy</button>
+          <button class="settings-tab-button" data-tab="about">About</button>
+        </div>
+        
+        <div class="settings-content">
+          <!-- Appearance Tab -->
+          <div id="appearance-tab" class="settings-tab-content active">
+            <div class="settings-section">
+              <h3>Theme</h3>
+              <div class="theme-presets">
+                <div class="theme-preset midnight active" data-theme="midnight"></div>
+                <div class="theme-preset light" data-theme="light"></div>
+                <div class="theme-preset ocean" data-theme="ocean"></div>
+                <div class="theme-preset forest" data-theme="forest"></div>
+                <div class="theme-preset sunset" data-theme="sunset"></div>
+                <div class="theme-preset candy" data-theme="candy"></div>
+                <div class="theme-preset neon" data-theme="neon"></div>
+                <div class="theme-preset nord" data-theme="nord"></div>
+                <div class="theme-preset gruvbox" data-theme="gruvbox"></div>
+                <div class="theme-preset early2000s" data-theme="early2000s"></div>
+                <div class="theme-preset winxp" data-theme="winxp"></div>
+                <div class="theme-preset win9x" data-theme="win9x"></div>
+              </div>
+            </div>
+            
+            <div class="settings-section">
+              <h3>Layout</h3>
+              <div class="form-group">
+                <label for="sidebar-width">Sidebar Width</label>
+                <input type="range" id="sidebar-width" min="180" max="300" step="10" value="240">
+                <div class="range-labels">
+                  <span>Narrow</span>
+                  <span>Wide</span>
+                </div>
+              </div>
+              
+              <div class="form-group checkbox">
+                <input type="checkbox" id="sidebar-right">
+                <label for="sidebar-right">Show sidebar on right</label>
+              </div>
+              
+              <div class="form-group checkbox">
+                <input type="checkbox" id="hide-tab-titles">
+                <label for="hide-tab-titles">Hide tab titles in sidebar</label>
+                <div class="setting-description">Only show tab icons for a cleaner look</div>
+              </div>
+            </div>
+            
+            <div class="settings-section">
+              <h3>Tab Size</h3>
+              <div class="form-group">
+                <select class="settings-select" id="tab-size">
+                  <option value="1">Small</option>
+                  <option value="2" selected>Medium</option>
+                  <option value="3">Large</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="settings-section">
+              <h3>Startup</h3>
+              <div class="form-group checkbox">
+                <input type="checkbox" id="show-startup-animation" checked>
+                <label for="show-startup-animation">Show startup animation</label>
+              </div>
+              
+              <div class="form-group checkbox">
+                <input type="checkbox" id="restore-tabs" checked>
+                <label for="restore-tabs">Restore tabs from previous session</label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Behavior Tab -->
+          <div id="behavior-tab" class="settings-tab-content">
+            <div class="settings-section">
+              <h3>Tab Behavior</h3>
+              <div class="form-group checkbox">
+                <input type="checkbox" id="auto-discard-tabs">
+                <label for="auto-discard-tabs">Auto-discard inactive tabs</label>
+                <div class="setting-description">Save memory by suspending tabs that haven't been used for a while</div>
+              </div>
+              
+              <div class="form-group checkbox">
+                <input type="checkbox" id="close-tabs-to-right">
+                <label for="close-tabs-to-right">Show "Close Tabs to Right" in context menu</label>
+              </div>
+            </div>
+            
+            <div class="settings-section">
+              <h3>New Tab Page</h3>
+              <div class="form-group">
+                <select class="settings-select" id="new-tab-behavior">
+                  <option value="homepage" selected>Default Homepage</option>
+                  <option value="blank">Blank Page</option>
+                  <option value="custom">Custom URL</option>
+                </select>
+              </div>
+              
+              <div class="form-group" id="custom-new-tab-url" style="display: none;">
+                <label for="new-tab-url">Custom URL</label>
+                <input type="text" id="new-tab-url" placeholder="https://example.com">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Privacy Tab -->
+          <div id="privacy-tab" class="settings-tab-content">
+            <div class="settings-section">
+              <h3>Privacy</h3>
+              <div class="form-group checkbox">
+                <input type="checkbox" id="do-not-track" checked>
+                <label for="do-not-track">Send "Do Not Track" request</label>
+              </div>
+              
+              <div class="form-group checkbox">
+                <input type="checkbox" id="clear-on-exit">
+                <label for="clear-on-exit">Clear browsing data on exit</label>
+              </div>
+              
+              <div class="form-group checkbox">
+                <input type="checkbox" id="disable-third-party-cookies">
+                <label for="disable-third-party-cookies">Block third-party cookies</label>
+              </div>
+            </div>
+            
+            <div class="settings-section">
+              <h3>Security</h3>
+              <div class="form-group checkbox">
+                <input type="checkbox" id="safe-browsing" checked>
+                <label for="safe-browsing">Enable safe browsing protection</label>
+              </div>
+              
+              <button class="settings-button secondary" id="clear-data-button">Clear Browsing Data...</button>
+            </div>
+          </div>
+          
+          <!-- About Tab -->
+          <div id="about-tab" class="settings-tab-content">
+            <div class="settings-section">
+              <h3>About Kasimir</h3>
+              <p style="margin-bottom: 16px;">Version 1.0.0</p>
+              <p style="margin-bottom: 16px;">A sleek and customizable web browser built with Electron.</p>
+              <p style="margin-bottom: 16px;">Copyright © 2025 Anonymer Hase</p>
+              <p>Licensed under the MIT License.</p>
+            </div>
+            
+            <div class="settings-section">
+              <h3>Credits</h3>
+              <p>Built with Electron, Material Symbols, and lots of ☕</p>
+            </div>
+            
+            <div class="settings-buttons">
+              <button class="settings-button primary" id="check-for-updates">Check for Updates</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Extensions Panel (placeholder) -->

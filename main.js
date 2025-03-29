@@ -12,8 +12,8 @@ function createWindow() {
     titleBarStyle: 'hidden',
     frame: false,
     icon: path.join(__dirname, 'assets', 'favicon.ico'),
-    show: false, // Don't show until ready
-    backgroundColor: '#121212', // Match the animation background color
+    show: false, // Fenster erst anzeigen, wenn es bereit ist
+    backgroundColor: '#121212', // Hintergrundfarbe (passt zur Startup-Animation)
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
@@ -22,15 +22,15 @@ function createWindow() {
     }
   });
 
-  // Load the main app page with the startup animation overlay
+  // Lade die Hauptseite der App
   mainWindow.loadFile('index.html');
   
-  // Show window when ready
+  // Zeige das Fenster, wenn es bereit ist
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
 
-  // Uncomment for development tools
+  // Für die Entwicklung: DevTools öffnen (optional)
   // mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', () => {
@@ -52,14 +52,14 @@ app.on('activate', () => {
   }
 });
 
-// Set app ID for Windows taskbar
+// Setze App-ID für die Windows-Taskleiste
 app.whenReady().then(() => {
   if (process.platform === 'win32') {
     app.setAppUserModelId("com.kasimir.browser");
   }
 });
 
-// Window control event handlers
+// Fenstersteuerung über IPC
 ipcMain.on('window-close', () => {
   if (mainWindow) mainWindow.close();
 });
@@ -78,13 +78,12 @@ ipcMain.on('window-maximize', () => {
   }
 });
 
-// Browser navigation event han dlers
+// Browser-Navigationsereignis
 ipcMain.on('navigate-to-url', (event, url) => {
-  // Handle URL navigation if needed
-  console.log('Navigate to URL:',  url);
+  console.log('Navigate to URL:', url);
 });
 
-// Animation completed event
+// Ereignis, wenn die Startup-Animation abgeschlossen ist
 ipcMain.on('startup-animation-complete', () => {
   console.log('Startup animation completed');
 });

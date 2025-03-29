@@ -4,12 +4,34 @@
   "description": "cool browser",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
-    
+    "start": "electron .",
+    "dist": "electron-builder"
   },
-  "author": "Jonas ",
+  "author": "Jonas",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^28.0.0"
+    "electron": "^28.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.kasimir.browser",
+    "productName": "Kasimir",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Kasimir"
+    },
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ]
   }
-} 
+}
