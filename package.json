@@ -11,7 +11,8 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^28.0.0",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2"
   },
   "build": {
     "appId": "com.kasimir.browser",
