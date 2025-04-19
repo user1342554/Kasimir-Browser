@@ -19,7 +19,7 @@ This project is in early development. Features may be incomplete, unstable, or m
 
 ```bash
 # Clone the repository
-git clone https://github.com/user1342554/Kasimir-Browser/kasimir-browser.git
+git clone https://github.com/user1342554/Kasimir-Browser.git
 
 # Navigate to the project directory
 cd kasimir-browser
