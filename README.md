@@ -1,4 +1,4 @@
-# Kasimir Browser <img src="assets/logo.png" width="48px" alt="Kasimir Browser Logo" style="vertical-align: text-bottom; margin-left: 10px;">
+# Kasimir Browser <img src="assets/logo.png" width="48px" alt="Kasimir Browser Logo" style="vertical-align: text-bottom; margin-left: 20px;">
 
 ⚠️ **BETA / WORK IN PROGRESS** ⚠️  
 This project is in early development. Features may be incomplete, unstable, or might change significantly. Don't take it too seriously yet – we're still working on it!
