@@ -2,7 +2,7 @@
 
 > A sleek, customizable Electron-based web browser with a modern interface.
 
-![Kasimir Browser Logo](assets/logo.png)
+![Kasimir Browser Logo](assets/logo.png) {width=120px}
 
 ⚠️ **BETA / WORK IN PROGRESS** ⚠️  
 This project is in early development. Features may be incomplete, unstable, or might change significantly. Don't take it too seriously yet – we're still working on it!
@@ -11,7 +11,7 @@ This project is in early development. Features may be incomplete, unstable, or m
 
 ## 🌟 Features
 
-![Kasimir Browser Home Screen](assets/screenshot-homepage.png)
+![Kasimir Browser Home Screen](assets/screenshot-homepage.png) {width=600px}
 
 - **Modern UI**  
 - **Vertical sidebar tabs** for better screen space utilization  
