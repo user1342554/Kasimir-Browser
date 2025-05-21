@@ -76,11 +76,6 @@ This project is currently in **BETA** and under active development. Many feature
 
 This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
 
----
-
-## 🤝 Contributing
-
-Since this is a work in progress, contributions are welcome but please understand that the project architecture may change significantly as it develops.
 
 ---
 
